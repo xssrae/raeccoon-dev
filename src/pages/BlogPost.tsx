@@ -82,17 +82,32 @@ export default function BlogPost() {
           {post.title}
         </h1>
 
-        {(post.date || post.readTime) && (
-          <div className="flex flex-wrap items-center gap-4 font-mono text-sm opacity-60 mb-10 pb-6 border-b border-black/10 dark:border-white/10 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-            {post.date && (
-              <span className="flex items-center gap-1.5">
-                <Calendar size={14} /> {post.date}
-              </span>
-            )}
-            {post.readTime && (
-              <span className="flex items-center gap-1.5">
-                <Clock size={14} /> {post.readTime}
-              </span>
+        {(post.date || post.readTime || post.tags.length > 0) && (
+          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-sm opacity-70 mb-10 pb-6 border-b border-black/10 dark:border-white/10 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+            <div className="flex flex-wrap items-center gap-4">
+              {post.date && (
+                <span className="flex items-center gap-1.5">
+                  <Calendar size={14} /> {post.date}
+                </span>
+              )}
+              {post.readTime && (
+                <span className="flex items-center gap-1.5">
+                  <Clock size={14} /> {post.readTime}
+                </span>
+              )}
+            </div>
+
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-mono px-2.5 py-0.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 opacity-80"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
         )}

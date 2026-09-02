@@ -26,7 +26,7 @@ export default function Home() {
   const interfaceTexts = {
     pt: {
       blogLabel: '/BLOG',
-      blogTitle: 'Blog 𐔌՞. .՞𐦯',
+      blogTitle: 'Raeccoon Blog',
       featuredPost: 'POST EM DESTAQUE',
       noImage: 'sem imagem ainda',
       readMore: 'Ler mais',
@@ -54,7 +54,7 @@ export default function Home() {
     },
     en: {
       blogLabel: '/BLOG',
-      blogTitle: 'Blog 𐔌՞. .՞𐦯',
+      blogTitle: 'Raecoon Blog',
       featuredPost: 'FEATURED POST',
       noImage: 'no image yet',
       readMore: 'Read more',
@@ -425,9 +425,22 @@ export default function Home() {
                     </Link>
                   </h3>
 
-                  <p className="opacity-70 leading-relaxed mb-8 text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-lg">
+                  <p className="opacity-70 leading-relaxed mb-6 text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-lg">
                     {highlightPost.excerpt}
                   </p>
+
+                  {highlightPost.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {highlightPost.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-mono px-2.5 py-0.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {(highlightPost.readTime || highlightPost.date) && (
                     <div className="mt-auto flex items-center justify-between pt-5 border-t border-black/10 dark:border-white/10 font-mono text-xs opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">

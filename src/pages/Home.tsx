@@ -16,7 +16,7 @@ import { projects_eng } from '@/data/projects/eng'
 import { jobs_pt } from '@/data/jobs/pt'
 import { jobs_eng } from '@/data/jobs/eng'
 import { useLanguage } from '@/context/LanguageContext'
-import profileImage from '@/assets/profile.png'
+import profileImage from '@/assets/profile.jpg'
 
 export default function Home() {
   const { lang } = useLanguage()
@@ -26,7 +26,7 @@ export default function Home() {
   const interfaceTexts = {
     pt: {
       blogLabel: '/BLOG',
-      blogTitle: 'Blog 𐔌՞. .՞𐦯',
+      blogTitle: 'Raeccoon Blog',
       featuredPost: 'POST EM DESTAQUE',
       noImage: 'sem imagem ainda',
       readMore: 'Ler mais',
@@ -54,7 +54,7 @@ export default function Home() {
     },
     en: {
       blogLabel: '/BLOG',
-      blogTitle: 'Blog 𐔌՞. .՞𐦯',
+      blogTitle: 'Raecoon Blog',
       featuredPost: 'FEATURED POST',
       noImage: 'no image yet',
       readMore: 'Read more',
@@ -110,7 +110,7 @@ export default function Home() {
     }
 
     return normalizedQuery ? resultProjects : resultProjects.slice(0, 3)
-  }, [searchQuery, lang, projects])
+  }, [searchQuery, projects])
 
   function scrollToSkillsSection() {
     document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })
@@ -403,16 +403,12 @@ export default function Home() {
           <FadeIn delay={0.1}>
             {highlightPost && (
               <div className="border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 flex flex-col xl:flex-row bg-white dark:bg-black">
-                <Link to={`/blog/${highlightPost.slug}`} className="xl:w-1/2 shrink-0 block h-80 xl:h-auto relative overflow-hidden group bg-black/5 dark:bg-white/5 flex items-center justify-center">
-                  {highlightPost.image_path ? (
-                    <>
-                      <img src={highlightPost.image_path} alt={highlightPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 dark:from-black/60 to-transparent" />
-                    </>
-                  ) : (
-                    <span className="text-xs opacity-40 font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.noImage}</span>
-                  )}
-                </Link>
+                {highlightPost.image_path && (
+                  <Link to={`/blog/${highlightPost.slug}`} className="xl:w-1/2 shrink-0 block h-80 xl:h-auto relative overflow-hidden group bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                    <img src={highlightPost.image_path} alt={highlightPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 dark:from-black/60 to-transparent" />
+                  </Link>
+                )}
 
                 <div className="flex-1 p-8 lg:p-10 flex flex-col bg-white dark:bg-black">
                   <span className="self-start font-mono text-[0.65rem] tracking-widest uppercase px-3 py-1.5 rounded-full mb-5 border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 font-semibold text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
@@ -429,9 +425,22 @@ export default function Home() {
                     </Link>
                   </h3>
 
-                  <p className="opacity-70 leading-relaxed mb-8 text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-lg">
+                  <p className="opacity-70 leading-relaxed mb-6 text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-lg">
                     {highlightPost.excerpt}
                   </p>
+
+                  {highlightPost.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {highlightPost.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-mono px-2.5 py-0.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {(highlightPost.readTime || highlightPost.date) && (
                     <div className="mt-auto flex items-center justify-between pt-5 border-t border-black/10 dark:border-white/10 font-mono text-xs opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">

@@ -246,41 +246,34 @@ export default function Home() {
 
           <FadeIn delay={0.1}>
             {previewJobs.length > 0 ? (
-              <div className="flex flex-col border-t border-black/10 dark:border-white/10">
-                {previewJobs.map((job) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-black/10 dark:border-white/10 pt-8">
+                {previewJobs.map((job, index) => (
                   <Link
                     key={`${job.company}-${job.role}-${job.startDate}`}
-                    to="/experience"
-                    className="group flex flex-col xl:flex-row xl:items-start justify-between gap-6 py-8 px-6 -mx-6 rounded-2xl border-b border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                    to={`/experience/${index}`}
+                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
                   >
-                    <div className="flex-1">
-                      <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2 transition-colors">
-                        {job.role}
-                        <ArrowRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-neutral-400" />
-                      </h3>
-                      <p className="mt-2 text-base md:text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-                        {job.company}
-                      </p>
-                      <p className="mt-4 opacity-70 text-base md:text-lg leading-relaxed text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl line-clamp-2">
-                        {job.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-6">
-                        {job.technologies.map((technology) => (
-                          <span
-                            key={technology}
-                            className="text-xs font-mono border border-black/15 dark:border-white/20 rounded-full px-3 py-1.5 opacity-90 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-black/5 dark:bg-black transition-colors"
-                          >
-                            {technology}
-                          </span>
-                        ))}
-                      </div>
+                    <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
+                      {job.role}
+                    </h3>
+                    <p className="mt-3 opacity-70 text-base leading-relaxed text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                      {job.summary || job.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {job.technologies.slice(0, 5).map((technology) => (
+                        <span
+                          key={technology}
+                          className="text-xs font-mono border border-black/15 dark:border-white/20 rounded-full px-3 py-1.5 opacity-90 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-black/5 dark:bg-black transition-colors"
+                        >
+                          {technology}
+                        </span>
+                      ))}
                     </div>
-
-                    <div className="flex flex-row xl:flex-col items-center xl:items-end gap-4 xl:gap-2 shrink-0 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] pt-2 xl:pt-0">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar size={16} /> {job.startDate} - {job.endDate}
-                      </span>
-                    </div>
+                    {job.impact && (
+                      <p className="mt-4 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                        // {job.impact}
+                      </p>
+                    )}
                   </Link>
                 ))}
               </div>

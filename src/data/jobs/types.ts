@@ -5,5 +5,9 @@ export interface Job {
   endDate: string
   location?: string
   description: string
+  summary?: string
+  impact?: string
+  challenges?: string[]
+  features?: string[]
   technologies: string[]
 }

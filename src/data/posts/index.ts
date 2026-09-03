@@ -26,38 +26,49 @@ function estimateReadTime(text: string): string {
   return `${minutes} min`
 }
 
-function parseFrontmatter(raw: string): { data: Record<string, string | string[]>; content: string } {
-  const trimmed = raw.trim()
-  if (!trimmed.startsWith('---')) {
-    return { data: {}, content: raw }
+function parseFrontmatter(raw: string): { data: Record<string, any>; content: string } {
+  // Normaliza quebras de linha para evitar caracteres \r (CRLF) no Windows
+  const normalizedRaw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+  const lines = normalizedRaw.split('\n')
+
+  if (lines.length === 0 || lines[0].trim() !== '---') {
+    return { data: {}, content: normalizedRaw }
   }
 
-  const endMatch = trimmed.indexOf('\n---', 3)
-  if (endMatch === -1) {
-    return { data: {}, content: raw }
+  // Encontra a primeira linha pós-cabeçalho (a partir do índice 1) que seja estritamente '---'
+  let closingIndex = -1
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i].trim() === '---') {
+      closingIndex = i
+      break
+    }
   }
 
-  const frontmatterBlock = trimmed.slice(3, endMatch).trim()
-  const content = trimmed.slice(endMatch + 4).trim()
-  const data: Record<string, string | string[]> = {}
+  if (closingIndex === -1) {
+    return { data: {}, content: normalizedRaw }
+  }
 
-  const lines = frontmatterBlock.split('\n')
+  const frontmatterLines = lines.slice(1, closingIndex)
+  const contentLines = lines.slice(closingIndex + 1)
+
+  const content = contentLines.join('\n').trim()
+  const data: Record<string, any> = {}
   let currentKey = ''
-  let isList = false
 
-  for (const line of lines) {
+  for (const line of frontmatterLines) {
     const trimmedLine = line.trim()
     if (!trimmedLine || trimmedLine.startsWith('#')) continue
 
-    // Verifica se é item de lista multilinha (ex: "- tag")
-    if (trimmedLine.startsWith('- ') && currentKey && isList) {
+    // Verifica item de lista multilinha (ex: "- tag")
+    if (trimmedLine.startsWith('- ') && currentKey) {
       let item = trimmedLine.slice(2).trim()
       if ((item.startsWith("'") && item.endsWith("'")) || (item.startsWith('"') && item.endsWith('"'))) {
         item = item.slice(1, -1)
       }
-      if (Array.isArray(data[currentKey])) {
-        data[currentKey].push(item)
+      if (!Array.isArray(data[currentKey])) {
+        data[currentKey] = []
       }
+      data[currentKey].push(item)
       continue
     }
 
@@ -66,18 +77,15 @@ function parseFrontmatter(raw: string): { data: Record<string, string | string[]
       const key = line.slice(0, colonIndex).trim()
       let value = line.slice(colonIndex + 1).trim()
 
-      // Caso a chave não tenha valor na mesma linha, pode ser início de lista
       if (!value) {
         currentKey = key
-        isList = true
         data[key] = []
         continue
       }
 
-      isList = false
       currentKey = key
 
-      // Suporte a array inline [tag1, tag2]
+      // Array inline: [tag1, tag2]
       if (value.startsWith('[') && value.endsWith(']')) {
         const arrayItems = value
           .slice(1, -1)
@@ -111,12 +119,12 @@ function parsePost(rawContent: string, filename: string): Post {
     .replace(/^.*[\\/]/, '') // remove o caminho
     .replace(/\.md$/, '') // remove a extensão
 
-  const slug: string = data.slug || fileSlug
-  const title: string = data.title || slug
-  const excerpt: string = data.excerpt || (content.slice(0, 150) + (content.length > 150 ? '...' : ''))
-  const date: string = data.date ? String(data.date) : ''
+  const slug: string = String(data.slug || fileSlug).trim()
+  const title: string = String(data.title || slug).trim()
+  const excerpt: string = String(data.excerpt || (content.slice(0, 150) + (content.length > 150 ? '...' : ''))).trim()
+  const date: string = data.date ? String(data.date).trim() : ''
   const readTime: string = data.readTime
-    ? String(data.readTime)
+    ? String(data.readTime).trim()
     : content.trim()
     ? estimateReadTime(content)
     : ''
@@ -159,9 +167,16 @@ function parsePost(rawContent: string, filename: string): Post {
 }
 
 export const posts: Post[] = Object.entries(modules)
-  .map(([filename, rawContent]) => parsePost(rawContent, filename))
+  .map(([filename, rawContent]) => {
+    try {
+      return parsePost(rawContent, filename)
+    } catch (error) {
+      console.error(`Erro ao processar arquivo ${filename}:`, error)
+      return null
+    }
+  })
+  .filter((post): post is Post => post !== null)
   .sort((a, b) => {
-    // Posts com data aparecem primeiro (mais recentes primeiro), posts sem data por último
     if (!a.date && !b.date) return 0
     if (!a.date) return 1
     if (!b.date) return -1

@@ -29,3 +29,11 @@ dist-ssr
 
 # Obsidian
 src/data/posts/.obsidian
+
+/.env.local
+
+# Obsidian
+src/data/posts/.obsidian
+
+# Devin
+.devin

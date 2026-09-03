@@ -3,7 +3,5 @@ export interface Project {
   title: string
   description: string
   githubUrl: string
-  stars: number
-  forks: number
   languages: string[]
 }

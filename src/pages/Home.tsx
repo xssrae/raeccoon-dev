@@ -348,10 +348,8 @@ export default function Home() {
 
                   <div className="flex flex-row xl:flex-col items-center xl:items-end gap-4 xl:gap-2 shrink-0 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] pt-2 xl:pt-0">
                     <span className="flex items-center gap-1.5">
-                      <Star size={16} /> {projectItem.stars}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <GitFork size={16} /> {projectItem.forks}
                     </span>
                   </div>
                 </a>

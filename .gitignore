@@ -26,3 +26,6 @@ dist-ssr
 # Variaveis de ambiente
 .env
 /.env.local
+
+# Obsidian
+src/data/posts/.obsidian

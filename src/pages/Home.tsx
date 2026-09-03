@@ -16,7 +16,7 @@ import { projects_eng } from '@/data/projects/eng'
 import { jobs_pt } from '@/data/jobs/pt'
 import { jobs_eng } from '@/data/jobs/eng'
 import { useLanguage } from '@/context/LanguageContext'
-import profileImage from '@/assets/profile.png'
+import profileImage from '@/assets/profile.jpg'
 
 export default function Home() {
   const { lang } = useLanguage()

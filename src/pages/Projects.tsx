@@ -35,11 +35,6 @@ export default function Projects() {
   const currentTexts = pageTexts[lang]
   const projects = lang === 'pt' ? projects_pt : projects_eng
 
-  console.log('DEBUG Projects - lang:', lang)
-  console.log('DEBUG Projects - projects_pt:', projects_pt)
-  console.log('DEBUG Projects - projects_eng:', projects_eng)
-  console.log('DEBUG Projects - projects:', projects)
-
   const filteredProjects = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase()
     if (!normalizedQuery) return projects
@@ -51,7 +46,7 @@ export default function Projects() {
       )
       return matchesTitle || matchesLanguage
     })
-  }, [searchQuery, lang, projects])
+  }, [searchQuery, projects])
 
   return (
     <main className="relative min-h-screen px-6 lg:px-10 pt-32 pb-16 w-full max-w-5xl mx-auto">

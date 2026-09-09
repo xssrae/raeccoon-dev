@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Check, ArrowRight, CalendarDays, MapPin } from 'lucide-react'
+import { ArrowLeft, Check, ArrowRight, ExternalLink, GitFork } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import { useLanguage } from '@/context/LanguageContext'
-import { jobs_pt } from '@/data/jobs/pt'
-import { jobs_eng } from '@/data/jobs/eng'
+import { projects_pt } from '@/data/projects/pt'
+import { projects_eng } from '@/data/projects/eng'
 
-export default function ExperienceDetail() {
+export default function ProjectsDetail() {
   const { lang } = useLanguage()
   const { id } = useParams<{ id: string }>()
 
@@ -17,35 +17,41 @@ export default function ExperienceDetail() {
   const pageTexts = {
     pt: {
       back: 'Voltar',
-      challenges: 'Desafios enfrentados no dia a dia',
-      skills: 'Skills adquiridas',
+      challenges: 'Desafios',
+      features: 'Funcionalidades',
+      impact: 'Impacto',
       technologies: 'Tecnologias',
+      repository: 'Ver repositório',
+      notFound: 'Projeto não encontrado',
     },
     en: {
       back: 'Back',
-      challenges: 'Challenges faced in the day-to-day',
-      skills: 'Skills acquired',
+      challenges: 'Challenges',
+      features: 'Features',
+      impact: 'Impact',
       technologies: 'Technologies',
+      repository: 'View repository',
+      notFound: 'Project not found',
     },
   }
 
   const currentTexts = pageTexts[lang]
-  const jobs = lang === 'pt' ? jobs_pt : jobs_eng
-  const jobIndex = parseInt(id || '0')
-  const job = jobs[jobIndex]
+  const projects = lang === 'pt' ? projects_pt : projects_eng
+  const projectIndex = parseInt(id || '0')
+  const project = projects.find((item) => item.index === projectIndex) ?? projects[projectIndex]
 
-  if (!job) {
+  if (!project) {
     return (
       <main className="relative min-h-screen px-6 lg:px-10 pt-32 pb-16 w-full max-w-5xl mx-auto">
         <Link
-          to="/experience"
+          to="/projects"
           className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
         >
           <ArrowLeft size={16} />
           {currentTexts.back}
         </Link>
         <p className="font-mono text-base opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-          Experience not found
+          {currentTexts.notFound}
         </p>
       </main>
     )
@@ -55,7 +61,7 @@ export default function ExperienceDetail() {
     <main className="relative min-h-screen px-6 lg:px-10 pt-32 pb-16 w-full max-w-5xl mx-auto">
       <FadeIn>
         <Link
-          to="/experience"
+          to="/projects"
           className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
         >
           <ArrowLeft size={16} />
@@ -66,46 +72,44 @@ export default function ExperienceDetail() {
           {/* Header */}
           <div>
             <h1 className="text-4xl lg:text-5xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-4">
-              {job.role}
+              {project.title}
             </h1>
             <p className="text-2xl opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-6">
-              {job.company}
+              {project.description}
             </p>
-            
-            <div className="flex flex-wrap gap-6 font-mono text-sm opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-              <div className="flex items-center gap-2">
-                <CalendarDays size={16} />
-                <span>{job.startDate} - {job.endDate || (lang === 'pt' ? 'Atualmente' : 'Currently')}</span>
-              </div>
-              {job.location && (
-                <div className="flex items-center gap-2">
-                  <MapPin size={16} />
-                  <span>{job.location}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="font-mono text-sm">
-            <p className="opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] leading-relaxed max-w-4xl">
-              {job.description}
+            <p className="text-base md:text-lg leading-relaxed opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
+              {project.summary || project.description}
             </p>
           </div>
 
           {/* Technologies */}
-          {job.technologies.length > 0 && (
+          {project.technologies.length > 0 && (
             <div className="font-mono text-sm">
-              <span className="opacity-50">{job.technologies.join('')}</span>
+              <p className="sr-only">{currentTexts.technologies}</p>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                {project.technologies.map((technology) => (
+                  <span key={technology}>{technology}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Impact */}
+          {project.impact && (
+            <div className="font-mono text-sm">
+              <span className="opacity-50">// {currentTexts.impact}</span>
+              <p className="mt-3 opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] leading-relaxed max-w-4xl">
+                {project.impact}
+              </p>
             </div>
           )}
 
           {/* Challenges */}
-          {job.challenges && job.challenges.length > 0 && (
+          {project.challenges && project.challenges.length > 0 && (
             <div className="font-mono text-sm">
               <span className="opacity-50">// {currentTexts.challenges}</span>
               <ul className="mt-3 space-y-2">
-                {job.challenges.map((challenge, index) => (
+                {project.challenges.map((challenge, index) => (
                   <li key={index} className="flex items-start gap-2 opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     <ArrowRight size={14} className="mt-1 shrink-0" />
                     <span>{challenge}</span>
@@ -115,12 +119,12 @@ export default function ExperienceDetail() {
             </div>
           )}
 
-          {/* skills */}
-          {job.skills && job.skills.length > 0 && (
+          {/* Features */}
+          {project.features && project.features.length > 0 && (
             <div className="font-mono text-sm">
-              <span className="opacity-50">// {currentTexts.skills}</span>
+              <span className="opacity-50">// {currentTexts.features}</span>
               <ul className="mt-3 space-y-2">
-                {job.skills.map((feature, index) => (
+                {project.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-2 opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     <Check size={14} className="mt-1 shrink-0" />
                     <span>{feature}</span>
@@ -128,6 +132,19 @@ export default function ExperienceDetail() {
                 ))}
               </ul>
             </div>
+          )}
+
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-black/20 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] transition-colors hover:bg-black/5 dark:border-white/20 dark:text-[var(--dark-text-color)] dark:hover:bg-white/5"
+            >
+              <GitFork size={16} />
+              {currentTexts.repository}
+              <ExternalLink size={14} />
+            </a>
           )}
         </div>
       </FadeIn>

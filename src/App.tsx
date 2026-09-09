@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Home from '@/pages/Home'
 import Projects from '@/pages/Projects'
+import ProjectsDetail from '@/pages/ProjectsDetail'
 import Experiences from '@/pages/Experiences'
 import ExperienceDetail from '@/pages/ExperienceDetail'
 import Blog from '@/pages/Blog'
@@ -22,6 +23,7 @@ export default function App() {
               <Route path="/experience" element={<Experiences />} />
               <Route path="/experience/:id" element={<ExperienceDetail />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectsDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
             </Routes>

@@ -7,7 +7,7 @@ import MagneticButton from '@/components/ui/MagneticButton'
 import PageContainer from '@/components/layout/PageContainer'
 import FadeIn from '@/components/ui/FadeIn'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { Mail, Calendar, Clock, ArrowRight, ChevronDown, Star, GitFork, ArrowUpRight, Search, SearchX, RotateCcw, BriefcaseBusiness, Code2 } from 'lucide-react'
+import { Mail, Calendar, Clock, ArrowRight, ChevronDown, BriefcaseBusiness, Code2 } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { Link } from 'react-router-dom'
 import { posts } from '@/data/posts'
@@ -21,7 +21,6 @@ import profileImage from '@/assets/profile.jpg'
 export default function Home() {
   const { lang } = useLanguage()
   const highlightPost = posts[0]
-  const [searchQuery, setSearchQuery] = useState('')
 
   const interfaceTexts = {
     pt: {
@@ -47,10 +46,7 @@ export default function Home() {
       noExperience: 'Adicione suas experiências em src/data/jobs/pt.ts',
       projectsLabel: '/PROJETOS',
       projectsTitle: 'Meus projetos',
-      searchPlaceholder: 'Buscar por nome, linguagem, tags...',
-      nothingFound: 'Nada encontrado para',
-      noProjects: 'Adicione seus projetos em src/data/projects.ts',
-      clearSearch: 'LIMPAR BUSCA'
+      projectsDescription: 'Uma visão geral dos meus projetos, destacando tecnologias e contribuições.'
     },
     en: {
       blogLabel: '/BLOG',
@@ -75,10 +71,8 @@ export default function Home() {
       noExperience: 'Add your experience entries in src/data/jobs/eng.ts',
       projectsLabel: '/PROJECTS',
       projectsTitle: 'My projects',
-      searchPlaceholder: 'Search by name, language, tags...',
-      nothingFound: 'Nothing found for',
-      noProjects: 'Add your projects in src/data/projects.ts',
-      clearSearch: 'CLEAR SEARCH'
+      projectsDescription: 'An overview of my projects, highlighting technologies and contributions.'
+      
     }
   }
 
@@ -87,15 +81,12 @@ export default function Home() {
   const jobs = lang === 'pt' ? jobs_pt : jobs_eng
   const previewJobs = jobs.slice(0, 2)
   
+  
   const skillCategories = Object.entries(profile.skills).filter(([, skillItems]) => skillItems.length > 0)
   const projects = lang === 'pt' ? projects_pt : projects_eng
+  const previewProjects = projects.slice(0, 2)
 
-  console.log('DEBUG Home - lang:', lang)
-  console.log('DEBUG Home - projects_pt:', projects_pt)
-  console.log('DEBUG Home - projects_eng:', projects_eng)
-  console.log('DEBUG Home - projects:', projects)
-
-  const filteredProjects = useMemo(() => {
+  /*const filteredProjects = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase()
     let resultProjects = projects
 
@@ -110,7 +101,7 @@ export default function Home() {
     }
 
     return normalizedQuery ? resultProjects : resultProjects.slice(0, 3)
-  }, [searchQuery, projects])
+  }, [searchQuery, projects])*/
 
   function scrollToSkillsSection() {
     document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })
@@ -269,11 +260,6 @@ export default function Home() {
                         </span>
                       ))}
                     </div>
-                    {job.impact && (
-                      <p className="mt-4 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-                        // {job.impact}
-                      </p>
-                    )}
                   </Link>
                 ))}
               </div>
@@ -290,89 +276,52 @@ export default function Home() {
       </section>
 
       <section id="projects" className="relative py-24 scroll-mt-10">
-        <PageContainer>
+          <PageContainer>
           <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-              <div>
-                <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.projectsLabel}</p>
-                <Link to="/projects" className="inline-flex items-center gap-3 mt-1 group">
-                  <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
-                    {currentTexts.projectsTitle}
-                  </h2>
-                  <ArrowRight size={28} className="text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:translate-x-1 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all" />
-                </Link>
-              </div>
-
-              <div className="relative w-full md:w-80 group">
-                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40 text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-focus-within:opacity-100 transition-opacity" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder={currentTexts.searchPlaceholder}
-                  className="w-full h-11 rounded-full border border-black/15 dark:border-white/20 hover:border-black/50 dark:hover:border-white/60 focus:border-black dark:focus:border-white focus:ring-1 focus:ring-black dark:focus:ring-white pl-11 pr-4 font-mono text-sm placeholder:opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-white dark:bg-black focus:outline-none transition-all shadow-sm"
-                />
-              </div>
+            <div className="mb-10">
+              <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.projectsLabel}</p>
+              <Link to="/projects" className="inline-flex items-center gap-3 mt-1 group">
+                <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
+                  {currentTexts.projectsTitle}
+                </h2>
+                <ArrowRight size={28} className="text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:translate-x-1 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all" />
+              </Link>
+              <p className="mt-4 text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-2xl leading-relaxed">
+                {currentTexts.projectsDescription}
+              </p>
             </div>
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <div className="flex flex-col border-t border-black/10 dark:border-white/10">
-              {filteredProjects.map((projectItem) => (
-                <a
-                  key={projectItem.slug}
-                  href={projectItem.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col xl:flex-row xl:items-start justify-between gap-6 py-8 px-6 -mx-6 rounded-2xl border-b border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
-                >
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2 transition-colors">
-                      {projectItem.title}
-                      <ArrowUpRight size={20} className="opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all text-neutral-400" />
+            {previewProjects.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-black/10 dark:border-white/10 pt-8">
+                {previewProjects.map((project, index) => (
+                  <Link
+                    key={`${project.title}-${project.description}`}
+                    to={`/projects/${index}`}
+                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                  >
+                    <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
+                      {project.title}
                     </h3>
-                    <p className="mt-3 opacity-70 text-base md:text-lg leading-relaxed text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
-                      {projectItem.description}
+                    <p className="mt-3 opacity-70 text-base leading-relaxed text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                      {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mt-6">
-                      {projectItem.languages?.map((programmingLanguage) => (
-                        <span
-                          key={programmingLanguage}
-                          className="text-xs font-mono border border-black/15 dark:border-white/20 rounded-full px-3 py-1.5 opacity-90 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-black/5 dark:bg-black transition-colors"
-                        >
-                          {programmingLanguage}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-row xl:flex-col items-center xl:items-end gap-4 xl:gap-2 shrink-0 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] pt-2 xl:pt-0">
-                    <span className="flex items-center gap-1.5">
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                    </span>
-                  </div>
-                </a>
-              ))}
-
-              {filteredProjects.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-16 px-6 mt-4">
-                  <SearchX size={32} className="opacity-40 mb-4 text-[var(--text-color)] dark:text-[var(--dark-text-color)]" />
-                  <p className="font-mono text-base opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-6">
-                    $ {searchQuery ? `${currentTexts.nothingFound} "${searchQuery}"` : currentTexts.noProjects}
-                  </p>
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
-                    >
-                      <RotateCcw size={16} />
-                      {currentTexts.clearSearch}
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+                    {project.impact && (
+                      <p className="mt-4 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                        // {project.impact}
+                      </p>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-16 px-6 border-t border-black/10 dark:border-white/10">
+                <BriefcaseBusiness size={32} className="opacity-40 mb-4 text-[var(--text-color)] dark:text-[var(--dark-text-color)]" />
+                <p className="font-mono text-base opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                </p>                                  
+              </div>
+            )}
           </FadeIn>
         </PageContainer>
       </section>

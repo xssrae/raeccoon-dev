@@ -6,8 +6,7 @@ export interface Job {
   location?: string
   description: string
   summary?: string
-  impact?: string
   challenges?: string[]
-  features?: string[]
+  skills?: string[]
   technologies: string[]
 }

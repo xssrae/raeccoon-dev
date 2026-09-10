@@ -1,9 +1,12 @@
 export interface Project {
+  index?: number
   slug: string
   title: string
   description: string
+  summary: string
+  impact?: string
+  challenges?: string[]
+  features?: string[]
   githubUrl: string
-  stars: number
-  forks: number
-  languages: string[]
+  technologies: string[]
 }

@@ -14,10 +14,10 @@ html {
 
 :root {
   --bg-color: #ede3d1;
-  --text-color: #7a685a;
-  --text-color-hover: #a58c7b;
+  --text-color: #5b4d43;
+  --text-color-hover: #68584e;
   --button-color-hover: #BABF94;
-  --box-color-hover: rgba(186, 191, 148, 0.5);
+  /*--box-color-hover: rgba(186, 191, 148, 0.5);*/
 }
 
 html.dark {
@@ -25,7 +25,7 @@ html.dark {
   --dark-text-color: #F6E7C6;
   --dark-text-color-hover: #eaca9a;
   --dark-box-color-hover: rgba(186, 191, 148, 0.3);
-  --dark-button-color-hover: #110f0d;
+  --dark-button-color-hover: #12110e;
 }
 
 body {

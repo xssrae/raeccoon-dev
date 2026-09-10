@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import { BriefcaseBusiness, CalendarDays, MapPin } from 'lucide-react'
+import { BriefcaseBusiness, CalendarDays, MapPin, ArrowRight } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import { useLanguage } from '@/context/LanguageContext'
 import { jobs_pt } from '@/data/jobs/pt'
 import { jobs_eng } from '@/data/jobs/eng'
+import { Link } from 'react-router-dom'
 
 export default function Experiences() {
   const { lang } = useLanguage()
@@ -56,9 +57,10 @@ export default function Experiences() {
         {jobs.length > 0 ? (
           <div className="flex flex-col border-t border-black/10 dark:border-white/10">
             {jobs.map((job, jobIndex) => (
-              <article
+              <Link
                 key={`${job.company}-${job.role}-${job.startDate}`}
-                className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 lg:gap-10 py-8 px-6 -mx-6 border-b border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                to={`/experience/${jobIndex}`}
+                className="group grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 lg:gap-10 py-8 px-6 -mx-6 border-b border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
               >
                 <div className="font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-60">
                   <div className="flex items-center gap-2">
@@ -83,21 +85,22 @@ export default function Experiences() {
                   <p className="text-xs font-mono opacity-40 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2">
                     #{String(jobIndex + 1).padStart(2, '0')}
                   </p>
-                  <h2 className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                  <h2 className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2">
                     {job.role}
+                    <ArrowRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-neutral-400" />
                   </h2>
                   <p className="mt-2 text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     {job.company}
                   </p>
                   <p className="mt-5 text-base md:text-lg leading-relaxed opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
-                    {job.description}
+                    {job.summary || job.description}
                   </p>
 
                   {job.technologies.length > 0 && (
                     <div className="mt-6">
                       <p className="sr-only">{currentTexts.technologies}</p>
                       <div className="flex flex-wrap gap-2">
-                        {job.technologies.map((technology) => (
+                        {job.technologies.slice(0, 5).map((technology) => (
                           <span
                             key={technology}
                             className="text-xs font-mono border border-black/15 dark:border-white/15 rounded-full px-3 py-1.5 opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-transparent"
@@ -105,11 +108,16 @@ export default function Experiences() {
                             {technology}
                           </span>
                         ))}
+                        {job.technologies.length > 5 && (
+                          <span className="text-xs font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                            +{job.technologies.length - 5} more
+                          </span>
+                        )}
                       </div>
                     </div>
                   )}
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         ) : (

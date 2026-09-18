@@ -10,26 +10,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 22
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 22
+        cache: npm
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Typecheck
+      run: npm run typecheck
 
     - name: Build
       run: npm run build
 
-    - name: Lint
-      run: npm run lint
+    - name: Upload production artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: production-dist
+        path: dist
+        if-no-files-found: error
+        retention-days: 1
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -38,6 +46,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Download production artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: production-dist
+        path: dist
 
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v2.1

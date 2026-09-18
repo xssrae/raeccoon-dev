@@ -53,12 +53,12 @@ export default function Projects() {
 
       <FadeIn delay={0.1}>
         {projects.length > 0 ? (
-          <div className="flex flex-col border-t border-black/10 dark:border-white/10">
+          <div className="flex flex-col gap-4">
             {projects.map((project, projectIndex) => (
               <Link
                 key={`${project.description}-${projectIndex}`}
                 to={`/projects/${project.index ?? projectIndex}`}
-                className="group grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 lg:gap-10 py-8 px-6 -mx-6 border-b border-black/10 dark:border-white/10 rounded hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                className="ui-surface group grid grid-cols-1 gap-6 p-6 lg:grid-cols-[220px_1fr] lg:gap-10 lg:p-8"
               >
                 <div className="hidden lg:block" aria-hidden="true" />
 
@@ -68,7 +68,7 @@ export default function Projects() {
                   </p>
                   <h2 className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2">
                     {project.title}
-                    <ArrowRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-neutral-400" />
+                    <ArrowRight size={20} className="-translate-x-2 text-neutral-400 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100" />
                   </h2>
                   <p className="mt-5 text-base md:text-lg leading-relaxed opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
                     {project.summary}

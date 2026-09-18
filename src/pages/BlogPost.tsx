@@ -39,7 +39,7 @@ export default function BlogPost() {
         </p>
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+          className="ui-pill inline-flex items-center gap-2 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} /> {currentTexts.backToBlog}
         </Link>
@@ -53,7 +53,7 @@ export default function BlogPost() {
         {/* Botão voltar */}
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 font-mono text-sm opacity-60 hover:opacity-100 transition-opacity text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-8 group"
+          className="ui-link group mb-8 inline-flex items-center gap-2 font-mono text-sm text-[var(--text-color)] opacity-60 dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           /blog
@@ -121,7 +121,7 @@ export default function BlogPost() {
         <div className="mt-16 pt-8 border-t border-black/10 dark:border-white/10 flex justify-between items-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+            className="ui-pill inline-flex items-center gap-2 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
           >
             <ArrowLeft size={16} />
             {currentTexts.backToBlog}

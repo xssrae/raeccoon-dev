@@ -55,12 +55,12 @@ export default function Experiences() {
 
       <FadeIn delay={0.1}>
         {jobs.length > 0 ? (
-          <div className="flex flex-col border-t border-black/10 dark:border-white/10">
+          <div className="flex flex-col gap-4">
             {jobs.map((job, jobIndex) => (
               <Link
                 key={`${job.company}-${job.role}-${job.startDate}`}
                 to={`/experience/${jobIndex}`}
-                className="group grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 lg:gap-10 py-8 px-6 -mx-6 border-b border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                className="ui-surface group grid grid-cols-1 gap-6 p-6 lg:grid-cols-[220px_1fr] lg:gap-10 lg:p-8"
               >
                 <div className="font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-60">
                   <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export default function Experiences() {
                   </p>
                   <h2 className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2">
                     {job.role}
-                    <ArrowRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-neutral-400" />
+                    <ArrowRight size={20} className="-translate-x-2 text-neutral-400 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100" />
                   </h2>
                   <p className="mt-2 text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     {job.company}

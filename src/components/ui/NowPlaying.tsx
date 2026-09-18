@@ -104,13 +104,13 @@ export default function NowPlaying() {
   }, [])
 
   return (
-    <div className="w-full max-w-[310px] rounded-2xl border border-black dark:border-white bg-transparent font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mt-6 flex items-center justify-center overflow-hidden transition-colors">
+    <div className="mt-6 flex w-full max-w-[310px] items-center justify-center overflow-hidden rounded-2xl bg-transparent font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
       {currentSpotifySong.isPlaying ? (
         <a
           href={currentSpotifySong.songUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center w-full h-full p-2.5 gap-3 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group"
+          className="ui-surface group flex h-full w-full items-center gap-3 p-2.5"
         >
           <img
             src={currentSpotifySong.albumArt}
@@ -133,7 +133,7 @@ export default function NowPlaying() {
           </div>
         </a>
       ) : (
-        <div className="flex items-center gap-3 px-4 py-3.5">
+        <div className="ui-surface flex w-full items-center gap-3 px-4 py-3.5">
           <SpotifyIcon className="w-5 h-5 text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-80" />
           <span className="text-xs opacity-70">{activeText.notPlaying}</span>
         </div>

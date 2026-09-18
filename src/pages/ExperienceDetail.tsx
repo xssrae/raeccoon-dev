@@ -39,7 +39,7 @@ export default function ExperienceDetail() {
       <main className="relative min-h-screen px-6 lg:px-10 pt-32 pb-16 w-full max-w-5xl mx-auto">
         <Link
           to="/experience"
-          className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
+          className="ui-link mb-8 inline-flex items-center gap-2 font-mono text-sm text-[var(--text-color)] opacity-60 dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} />
           {currentTexts.back}
@@ -56,7 +56,7 @@ export default function ExperienceDetail() {
       <FadeIn>
         <Link
           to="/experience"
-          className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
+          className="ui-link mb-8 inline-flex items-center gap-2 font-mono text-sm text-[var(--text-color)] opacity-60 dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} />
           {currentTexts.back}

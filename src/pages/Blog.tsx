@@ -123,10 +123,11 @@ export default function Blog() {
             <button
               type="button"
               onClick={() => setSelectedTag(null)}
-              className={`px-3.5 py-1.5 rounded-full font-mono text-xs transition-all shrink-0 cursor-pointer ${
+              aria-pressed={selectedTag === null}
+              className={`ui-pill shrink-0 cursor-pointer px-3.5 py-1.5 font-mono text-xs ${
                 selectedTag === null
                   ? 'bg-[var(--text-color)] text-white dark:bg-white dark:text-black font-semibold shadow-sm'
-                  : 'border border-black/15 dark:border-white/15 bg-white/50 dark:bg-white/5 text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-70 hover:opacity-100 hover:border-black/30 dark:hover:border-white/30'
+                  : 'bg-white/50 dark:bg-white/5 text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-70'
               }`}
             >
               {currentTexts.allTags} ({posts.length})
@@ -139,10 +140,11 @@ export default function Blog() {
                   key={tag}
                   type="button"
                   onClick={() => handleTagClick(tag)}
-                  className={`px-3.5 py-1.5 rounded-full font-mono text-xs transition-all shrink-0 cursor-pointer ${
+                  aria-pressed={isSelected}
+                  className={`ui-pill shrink-0 cursor-pointer px-3.5 py-1.5 font-mono text-xs ${
                     isSelected
                       ? 'bg-[var(--text-color)] text-white dark:bg-white dark:text-black font-semibold shadow-sm'
-                      : 'border border-black/15 dark:border-white/15 bg-white/50 dark:bg-white/5 text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-70 hover:opacity-100 hover:border-black/30 dark:hover:border-white/30'
+                      : 'bg-white/50 dark:bg-white/5 text-[var(--text-color)] dark:text-[var(--dark-text-color)] opacity-70'
                   }`}
                 >
                   #{tag} ({count})
@@ -160,16 +162,16 @@ export default function Blog() {
               <FadeIn key={blogPost.slug} delay={postIndex * 0.06}>
                 <Link
                   to={`/blog/${blogPost.slug}`}
-                  className="group flex flex-col h-full bg-white dark:bg-[#12100d] rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5"
+                  className="ui-surface group flex h-full flex-col overflow-hidden bg-white dark:bg-[#12100d]"
                 >
                   {blogPost.image_path && (
                     <div className="relative h-48 sm:h-52 w-full bg-black/5 dark:bg-white/5 overflow-hidden flex items-center justify-center shrink-0">
                       <img
                         src={blogPost.image_path}
                         alt={blogPost.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-focus-visible:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                     </div>
                   )}
 
@@ -178,13 +180,13 @@ export default function Blog() {
                       <span className="font-mono text-xs opacity-40 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                         #{String(postIndex + 1).padStart(2, '0')}
                       </span>
-                      <span className="inline-flex items-center gap-1 font-mono text-xs opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:opacity-100 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all">
+                      <span className="inline-flex items-center gap-1 font-mono text-xs opacity-60 text-[var(--text-color)] transition-all group-hover:text-[var(--text-color-hover)] group-hover:opacity-100 group-focus-visible:text-[var(--text-color-hover)] group-focus-visible:opacity-100 dark:text-[var(--dark-text-color)] dark:group-hover:text-[var(--dark-text-color-hover)] dark:group-focus-visible:text-[var(--dark-text-color-hover)]">
                         {currentTexts.readPost}
-                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 group-focus-visible:translate-x-1" />
                       </span>
                     </div>
 
-                    <h2 className="text-xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-3 line-clamp-2 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
+                    <h2 className="mb-3 line-clamp-2 font-mono text-xl font-bold text-[var(--text-color)] transition-colors group-hover:text-[var(--text-color-hover)] group-focus-visible:text-[var(--text-color-hover)] dark:text-[var(--dark-text-color)] dark:group-hover:text-[var(--dark-text-color-hover)] dark:group-focus-visible:text-[var(--dark-text-color-hover)]">
                       {blogPost.title}
                     </h2>
 
@@ -204,10 +206,11 @@ export default function Blog() {
                               e.stopPropagation()
                               handleTagClick(tag)
                             }}
-                            className={`text-[0.7rem] font-mono px-2.5 py-0.5 rounded-full border transition-all cursor-pointer ${
+                            aria-pressed={selectedTag === tag}
+                            className={`ui-pill cursor-pointer px-2.5 py-0.5 font-mono text-[0.7rem] ${
                               selectedTag === tag
                                 ? 'bg-[var(--text-color)] text-white dark:bg-white dark:text-black border-transparent font-semibold'
-                                : 'border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 opacity-70 hover:opacity-100 text-[var(--text-color)] dark:text-[var(--dark-text-color)]'
+                                : 'bg-black/5 dark:bg-white/5 opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]'
                             }`}
                           >
                             #{tag}
@@ -246,7 +249,7 @@ export default function Blog() {
             <button
               type="button"
               onClick={handleClearFilters}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)] cursor-pointer"
+              className="ui-pill flex cursor-pointer items-center gap-2 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
             >
               <RotateCcw size={16} />
               {currentTexts.clearSearch}
@@ -263,4 +266,4 @@ export default function Blog() {
       )}
     </main>
   )
-}
+}

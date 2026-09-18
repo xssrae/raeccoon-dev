@@ -51,12 +51,12 @@ export const projects_pt: Project[] = [
   {
     index: 2,
     slug: 'noctus-lambda',
-    title: 'Pipeline ETL Noctus Lambda',
-    description:'Analise de transações financeiras em tempo real com o Lambda que consome mensagens/eventos de transações do tópico Apache Kafka, enriquece os dados para análise de fraudes e anomalias financeiras.',
+    title: 'Noctus Lambda',
+    description:'Pipeline ETL que realiza análise de transações financeiras em tempo real com o Lambda que consome mensagens/eventos de transações do tópico Apache Kafka, enriquece os dados para análise de fraudes e anomalias financeiras.',
     impact: 
       'Enriquecimento de dados de transações financeiras em tempo real, permitindo a análise avançada e detecção de fraudes',
     summary:
-      'Evolução de um pipeline de ETL (Extract, Transform, Load) em lote para uma arquitetura Serverless orientada a eventos na AWS. O sistema consome mensagens/eventos de transações via Apache Kafka em tempo real, enriquece as transações cruzando-as com uma base cadastral de clientes hospedada no Bucket S3 (com otimização de cache em memória) e armazena os dados finais no Data Lake na camada consolidada (Curated) de forma particionada (Hive Partitioning). Os dados servem posterioremente para análise de fraudes e anomalias financeiras. Toda a infraestrutura é provisionada via Terraform seguindo rígidos conceitos de FinOps, garantindo a operação dentro do AWS Free Tier (Limite Gratuito) através de regras de ciclo de vida automáticas no S3 e limites de orçamento configurados no AWS Budgets.',
+      'Pipeline de ETL (Extract, Transform, Load) em lote para uma arquitetura Serverless orientada a eventos na AWS. Realiza o consumo de mensagens/eventos de transações via Apache Kafka em tempo real, enriquece e cruza os dados com uma base de clientes no Bucket S3.',
     githubUrl: 'https://github.com/xssrae/noctus-lambda',
     challenges: [
       'Implementar processamento de eventos de transações financeiras em tempo real utilizando AWS Lambda',

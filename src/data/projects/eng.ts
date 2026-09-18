@@ -51,12 +51,12 @@ export const projects_eng: Project[] = [
   {
     index: 2,
     slug: 'noctus-lambda',
-    title: 'Noctus Lambda ETL Pipeline',
+    title: 'Noctus Lambda',
     description: 'Real-time analysis of financial transactions with the Lambda that consumes messages/events of transactions from the Apache Kafka topic, enriches the data for fraud and financial anomaly analysis.',
     impact:
       'Real-time enrichment of financial transaction data, enabling advanced analysis and fraud detection',
     summary:
-      'Evolution of a batch ETL (Extract, Transform, Load) pipeline to a Serverless architecture oriented to events on AWS. The system consumes messages/events of transactions via Apache Kafka in real-time, enriches the transactions by cross-referencing them with a customer registry hosted in the S3 Bucket (with in-memory cache optimization), and stores the final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning). The data is later used for fraud and financial anomaly analysis. All infrastructure is provisioned via Terraform following strict FinOps principles, ensuring operation within the AWS Free Tier (Free Usage Limits) through automatic lifecycle rules on S3 and budget limits configured in AWS Budgets.',
+      'Pipeline to a Serverless architecture oriented to events on AWS. The system consumes messages/events of transactions via Apache Kafka in real-time, enriches the transactions by cross-referencing them with a customer registry hosted in the S3 Bucket (with in-memory cache optimization), and stores the final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning). The data is later used for fraud and financial anomaly analysis. All infrastructure is provisioned via Terraform following strict FinOps principles, ensuring operation within the AWS Free Tier (Free Usage Limits) through automatic lifecycle rules on S3 and budget limits configured in AWS Budgets.',
     githubUrl: 'https://github.com/xssrae/noctus-lambda',
     challenges: [
       'Implementing real-time processing of financial transaction events using AWS Lambda',

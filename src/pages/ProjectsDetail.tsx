@@ -45,7 +45,7 @@ export default function ProjectsDetail() {
       <main className="relative min-h-screen px-6 lg:px-10 pt-32 pb-16 w-full max-w-5xl mx-auto">
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
+          className="ui-link mb-8 inline-flex items-center gap-2 font-mono text-sm text-[var(--text-color)] opacity-60 dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} />
           {currentTexts.back}
@@ -62,7 +62,7 @@ export default function ProjectsDetail() {
       <FadeIn>
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-sm font-mono opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:opacity-100 transition-opacity mb-8"
+          className="ui-link mb-8 inline-flex items-center gap-2 font-mono text-sm text-[var(--text-color)] opacity-60 dark:text-[var(--dark-text-color)]"
         >
           <ArrowLeft size={16} />
           {currentTexts.back}
@@ -139,7 +139,7 @@ export default function ProjectsDetail() {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-black/20 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] transition-colors hover:bg-black/5 dark:border-white/20 dark:text-[var(--dark-text-color)] dark:hover:bg-white/5"
+              className="ui-pill inline-flex w-fit items-center gap-2 px-6 py-2.5 font-mono text-sm text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
             >
               <GitFork size={16} />
               {currentTexts.repository}

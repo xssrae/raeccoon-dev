@@ -68,14 +68,14 @@ export default function Navbar() {
           {isBlogPost ? (
              <button
               onClick={() => { setIsMobileMenuOpen(false); navigate('/blog'); }}
-              className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity text-[var(--text-color)] dark:text-[var(--dark-text-color)] w-fit"
+              className="ui-link flex w-fit items-center gap-3 text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
             >
               <ArrowLeft size={20} /> {navLabels[lang].blogBtn}
             </button>
           ) : !isCurrentPathHome ? (
             <button
               onClick={() => { setIsMobileMenuOpen(false); navigate('/'); }}
-              className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-left w-fit"
+              className="ui-link flex w-fit items-center gap-3 text-left text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
             >
               {navLabels[lang].homeBtn}
             </button>
@@ -84,7 +84,7 @@ export default function Navbar() {
               <button
                 key={item.id}
                 onClick={() => handleNavigationAndScroll(item)}
-                className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity text-[var(--text-color)] dark:text-[var(--dark-text-color)] text-left w-fit"
+                className="ui-link flex w-fit items-center gap-3 text-left text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
               >
                 <span className="text-sm opacity-40 mr-1">•</span> {item.label[lang]}
               </button>
@@ -96,14 +96,14 @@ export default function Navbar() {
           <div className="flex items-center gap-2 font-mono text-sm uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
             <button
               onClick={toggleLang}
-              className={`transition-opacity ${lang === 'pt' ? 'font-bold opacity-100' : 'opacity-40 hover:opacity-70'}`}
+              className={`ui-link ${lang === 'pt' ? 'font-bold opacity-100' : 'opacity-40'}`}
             >
               PT
             </button>
             <span className="opacity-30">/</span>
             <button
               onClick={toggleLang}
-              className={`transition-opacity ${lang === 'en' ? 'font-bold opacity-100' : 'opacity-40 hover:opacity-70'}`}
+              className={`ui-link ${lang === 'en' ? 'font-bold opacity-100' : 'opacity-40'}`}
             >
               EN
             </button>
@@ -116,7 +116,7 @@ export default function Navbar() {
           
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="xl:hidden flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+            className="ui-icon-button flex items-center justify-center p-2 text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)] xl:hidden"
           >
             {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -125,14 +125,14 @@ export default function Navbar() {
             {isBlogPost ? (
               <button
                 onClick={() => navigate('/blog')}
-                className="flex items-center gap-2 font-mono text-sm tracking-wider uppercase px-4 py-2 rounded-full transition-colors opacity-70 hover:opacity-100 hover:bg-white dark:hover:bg-white/5 cursor-pointer text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                className="ui-pill flex cursor-pointer items-center gap-2 px-4 py-2 font-mono text-sm uppercase tracking-wider text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
               >
                 <ArrowLeft size={16} /> {navLabels[lang].blogBtn}
               </button>
             ) : !isCurrentPathHome ? (
               <button
                 onClick={() => navigate('/')}
-                className="flex items-center gap-2 font-mono text-sm tracking-wider uppercase px-4 py-2 rounded-full transition-colors opacity-70 hover:opacity-100 hover:bg-white dark:hover:bg-white/5 cursor-pointer text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                className="ui-pill flex cursor-pointer items-center gap-2 px-4 py-2 font-mono text-sm uppercase tracking-wider text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
               >
                 {navLabels[lang].homeBtn}
               </button>
@@ -141,7 +141,7 @@ export default function Navbar() {
                 <button
                   key={navigationElement.id}
                   onClick={() => handleNavigationAndScroll(navigationElement)}
-                  className="flex items-center gap-2 font-mono text-sm tracking-wider uppercase px-4 py-2 rounded-full transition-colors opacity-70 hover:opacity-100 hover:bg-white dark:hover:bg-white/5 cursor-pointer text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                  className="ui-pill flex cursor-pointer items-center gap-2 px-4 py-2 font-mono text-sm uppercase tracking-wider text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
                 >
                   {navigationElement.label[lang].toUpperCase()}
                 </button>
@@ -154,13 +154,13 @@ export default function Navbar() {
 
             <button
               onClick={toggleLang}
-              className="flex items-center gap-2 font-mono text-sm uppercase cursor-pointer text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+              className="ui-link flex cursor-pointer items-center gap-2 font-mono text-sm uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
             >
-              <span className={`transition-opacity ${lang === 'pt' ? 'font-semibold opacity-100' : 'opacity-40 hover:opacity-70'}`}>
+              <span className={lang === 'pt' ? 'font-semibold opacity-100' : 'opacity-40'}>
                 PT
               </span>
               <span className="opacity-30">/</span>
-              <span className={`transition-opacity ${lang === 'en' ? 'font-semibold opacity-100' : 'opacity-40 hover:opacity-70'}`}>
+              <span className={lang === 'en' ? 'font-semibold opacity-100' : 'opacity-40'}>
                 EN
               </span>
             </button>
@@ -170,7 +170,7 @@ export default function Navbar() {
 
           <button
             onClick={toggleTheme}
-            className="opacity-70 hover:opacity-100 flex items-center justify-center p-1 transition-opacity cursor-pointer text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+            className="ui-icon-button flex cursor-pointer items-center justify-center p-2 text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]"
           >
             {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
           </button>

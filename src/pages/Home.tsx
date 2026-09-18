@@ -1,4 +1,3 @@
-import { useState, useMemo} from 'react'
 import ScrambleText from '@/components/ui/ScrambleText'
 import ParticlesBackground from '@/components/ui/ParticlesBackground'
 import PhotoFrame from '@/components/ui/PhotoFrame'
@@ -114,7 +113,6 @@ export default function Home() {
       <main id="home" className="relative min-h-screen flex items-center pt-24 pb-16 scroll-mt-24">
         <PageContainer className="relative z-10 flex flex-col-reverse xl:flex-row items-center justify-center gap-10 xl:gap-16 pt-8 xl:pt-0">
           
-          {/* Seção de Texto (Centralizada no Mobile/Tela Dividida, Esquerda no Desktop) */}
           <div className="flex-1 max-w-2xl flex flex-col items-center text-center xl:items-start xl:text-left">
             <ScrambleText
               text={`${profile.name}_`}
@@ -132,7 +130,7 @@ export default function Home() {
               <div className="flex flex-wrap justify-center xl:justify-start gap-3 mt-8">
                 {profile.email && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(`mailto:${profile.email}`)}
                   >
                     <Mail size={16} strokeWidth={1.5} /> EMAIL
@@ -140,7 +138,7 @@ export default function Home() {
                 )}
                 {profile.github && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(profile.github)}
                   >
                     <GithubIcon width={16} height={16} /> GITHUB
@@ -148,7 +146,7 @@ export default function Home() {
                 )}
                 {profile.linkedin && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(profile.linkedin)}
                   >
                     <LinkedinIcon width={16} height={16} /> LINKEDIN
@@ -166,7 +164,7 @@ export default function Home() {
 
         <button
           onClick={scrollToSkillsSection}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50 hover:opacity-100 transition-opacity animate-bounce text-[var(--text-color)] dark:text-[var(--dark-text-color)] hidden xl:block"
+          className="ui-icon-button absolute bottom-10 left-1/2 hidden -translate-x-1/2 animate-bounce p-2 text-[var(--text-color)] opacity-50 dark:text-[var(--dark-text-color)] xl:block"
         >
           <ChevronDown size={28} />
         </button>
@@ -223,7 +221,7 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.experienceLabel}</p>
-              <Link to="/experience" className="inline-flex items-center gap-3 mt-1 group">
+              <Link to="/experience" className="ui-link group mt-1 inline-flex items-center gap-3">
                 <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
                   {currentTexts.experienceTitle}
                 </h2>
@@ -242,7 +240,7 @@ export default function Home() {
                   <Link
                     key={`${job.company}-${job.role}-${job.startDate}`}
                     to={`/experience/${index}`}
-                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                    className="ui-surface group p-6"
                   >
                     <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
                       {job.role}
@@ -280,7 +278,7 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.projectsLabel}</p>
-              <Link to="/projects" className="inline-flex items-center gap-3 mt-1 group">
+              <Link to="/projects" className="ui-link group mt-1 inline-flex items-center gap-3">
                 <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
                   {currentTexts.projectsTitle}
                 </h2>
@@ -299,7 +297,7 @@ export default function Home() {
                   <Link
                     key={`${project.title}-${project.description}`}
                     to={`/projects/${index}`}
-                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                    className="ui-surface group p-6"
                   >
                     <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
                       {project.title}
@@ -331,7 +329,7 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.blogLabel}</p>
-              <Link to="/blog" className="inline-flex items-center gap-3 mt-1 group">
+              <Link to="/blog" className="ui-link group mt-1 inline-flex items-center gap-3">
                 <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
                   {currentTexts.blogTitle}
                 </h2>
@@ -342,7 +340,7 @@ export default function Home() {
 
           <FadeIn delay={0.1}>
             {highlightPost && (
-              <div className="border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 flex flex-col xl:flex-row bg-white dark:bg-black">
+              <div className="ui-surface flex flex-col overflow-hidden bg-white shadow-md dark:bg-black xl:flex-row">
                 {highlightPost.image_path && (
                   <Link to={`/blog/${highlightPost.slug}`} className="xl:w-1/2 shrink-0 block h-80 xl:h-auto relative overflow-hidden group bg-black/5 dark:bg-white/5 flex items-center justify-center">
                     <img src={highlightPost.image_path} alt={highlightPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -358,7 +356,7 @@ export default function Home() {
                   <h3 className="text-3xl font-bold mb-4">
                     <Link
                       to={`/blog/${highlightPost.slug}`}
-                      className="group/title inline-flex items-center gap-2 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:text-[var(--text-color-hover)] dark:hover:text-[var(--dark-text-color-hover)] transition-colors"
+                      className="ui-link group/title inline-flex items-center gap-2 text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     >
                       {highlightPost.title}
                       <ArrowRight size={20} className="shrink-0 translate-x-0 group-hover/title:translate-x-1 transition-transform" />
@@ -392,7 +390,7 @@ export default function Home() {
                           <span className="flex items-center gap-1.5"><Clock size={14} /> {highlightPost.readTime}</span>
                         )}
                       </div>
-                    <Link to={`/blog/${highlightPost.slug}`} className="flex items-center gap-1.5 group font-semibold text-[var(--text-grey)] hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+                    <Link to={`/blog/${highlightPost.slug}`} className="ui-link group flex items-center gap-1.5 font-semibold text-[var(--text-grey)]">
                         {currentTexts.readMore} <ArrowRight size={14} className="group-hover:opacity-100 transition-opacity" />
                       </Link>
                     </div>

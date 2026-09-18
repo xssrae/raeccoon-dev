@@ -96,7 +96,7 @@ export default function ExperienceDetail() {
           {/* Technologies */}
           {job.technologies.length > 0 && (
             <div className="font-mono text-sm">
-              <span className="opacity-50">{job.technologies.join('')}</span>
+              <span className="opacity-50">{job.technologies.join(', ')}</span>
             </div>
           )}
 

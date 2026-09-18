@@ -26,7 +26,7 @@ export const jobs_pt: Job[] = [
       'Machine Learning com uso de agentes de IA (Claude Code e Devin)'
     ],
     technologies: [
-      'Java','Kotlin', 'Spring Boot','Apache Kafka', 'AWS SQS', 'AWS Lambda', 'AWS Glue', 'Amazon S3', 'Apache Cassandra', 'Terraform', 'Docker', 'AWS ECS', 'Datadog', 'Grafana', 'Splunk', 'Claude Code', 'Devin'
+      'Java', 'Kotlin', 'Spring Boot', 'Apache Kafka', 'AWS SQS', 'AWS Lambda', 'AWS Glue', 'Amazon S3', 'Apache Cassandra', 'Terraform', 'Docker', 'AWS ECS', 'Datadog', 'Grafana', 'Splunk', 'Claude Code', 'Devin'
     ],
   },
   {

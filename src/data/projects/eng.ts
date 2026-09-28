@@ -5,45 +5,44 @@ export const projects_eng: Project[] = [
     index: 0,
     slug: 'rayo-cozy',
     title: 'Rayo Cozy',
-    description: 'Web application for technology project management',
+    description: 'A productivity workspace for organizing projects, tasks, and focus time.',
     summary:
-      'Web application for technology project management, developed in Typescript and React. Allows users to create, organize and track their projects, list tasks and much more through an intuitive, responsive and gamified interface, promoting productivity and well-being.',
-    impact: 'Increase in productivity and improvement in user well-being through efficient management of technology projects, tasks and habits',
+      'A full-stack application built with TypeScript, React, and TanStack Start. It brings projects, tasks, Kanban boards, and focus sessions into a responsive experience with authentication and PostgreSQL persistence.',
+    impact: 'Brings planning and execution into one clear workflow, reducing context switching between project, task, and time-tracking tools.',
     challenges: [
-      'Implementing an intuitive and responsive user interface for mobile devices',
-      'Integrating the application with Firebase for authentication, data storage and push notifications',
-      'Ensuring the security and privacy of user data',
-      'Optimizing the application performance for a seamless user experience'
+      'Designing a consistent responsive interface for desktop and mobile devices',
+      'Modeling projects, tasks, and structured content with PostgreSQL persistence',
+      'Keeping the focus timer reliable across navigation and resumed sessions',
+      'Providing authentication and secure isolation of each user’s data'
     ],
     features: [
-      'Creation and organization of tasks and habits',
-      'Push notifications for task and habit reminders',
-      'Real-time data synchronization with Firebase',
-      'Intuitive and responsive user interface for mobile devices'
+      'Project and task organization through lists and a Kanban board',
+      'Dedicated editors with autosave and failure recovery',
+      'Server-resumable focus timer',
+      'Reports and data export for tracking completed work'
     ],
     githubUrl: 'https://github.com/xssrae/rayo-cozy-space',
-    technologies: ['Typescript', 'React', 'Vite']
+    technologies: ['TypeScript', 'React', 'TanStack Start', 'PostgreSQL', 'Better Auth']
   },
   {
     index: 1,
     slug: 'noctus-service',
     title: 'Noctus Service',
-    description: 'Asynchronous service for fraud detection in financial transactions',
+    description: 'An asynchronous service for recording and assessing financial transactions.',
     summary:
-      'Fraud detection service for financial transactions, developed in Java with the Spring Boot Framework. It functions as an event log for transactions in real-time via Apache Kafka, processing them asynchronously and storing the results in a topic for later analysis. The system is integrated with the Noctus Lambda ETL pipeline, which enriches transactions with customer analysis and stores the final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning). All infrastructure is provisioned via Terraform following strict FinOps principles, ensuring operation within the AWS Free Tier (Free Usage Limits) through automatic lifecycle rules on S3 and budget limits configured in AWS Budgets.',
-    impact: 'Real-time fraud detection in financial transactions, ensuring the integrity and consistency of processed data',
+      'A Java and Spring Boot API that receives transactions, applies fraud assessment rules, and publishes events to Apache Kafka. The flow decouples the API response from the enrichment later performed by Noctus Lambda.',
+    impact: 'Provides a reliable, decoupled entry point for the fraud pipeline while preserving event consistency before analytical processing.',
     challenges: [
-      'Implementing asynchronous processing of financial transaction events in real-time',
-      'Integrating the service with the Noctus Lambda ETL pipeline for data enrichment',
-      'Ensuring the integrity and consistency of processed data',
-      'Provisioning infrastructure efficiently and cost-effectively using Terraform and FinOps principles'
+      'Processing transactions asynchronously without losing confirmed events',
+      'Defining a stable contract between the API, Kafka topic, and enrichment pipeline',
+      'Maintaining consistency across persistence, publication, and offset commits',
+      'Reproducing the architecture locally with containerized services'
     ],
     features: [
-      'Real-time event logging for financial transactions via Apache Kafka',
-      'Asynchronous processing of events for fraud detection',
-      'Integration with the Noctus Lambda ETL pipeline for data enrichment',
-      'Storage of final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning)',
-      'Infrastructure provisioning via Terraform following FinOps principles'
+      'REST API for transaction recording and initial assessment',
+      'Asynchronous event publishing through Apache Kafka',
+      'Contract-based integration with the Noctus Lambda pipeline',
+      'Reproducible local environment for integration testing'
     ],
     githubUrl: 'https://github.com/xssrae/noctus-service',
     technologies: ['Java', 'Spring Boot', 'Apache Kafka']
@@ -51,24 +50,24 @@ export const projects_eng: Project[] = [
   {
     index: 2,
     slug: 'noctus-lambda',
-    title: 'Noctus Lambda ETL Pipeline',
-    description: 'Real-time analysis of financial transactions with the Lambda that consumes messages/events of transactions from the Apache Kafka topic, enriches the data for fraud and financial anomaly analysis.',
+    title: 'Noctus Lambda',
+    description: 'A serverless pipeline that enriches transactions for fraud analysis.',
     impact:
-      'Real-time enrichment of financial transaction data, enabling advanced analysis and fraud detection',
+      'Turns operational events into organized analytical data for fraud and anomaly investigation.',
     summary:
-      'Evolution of a batch ETL (Extract, Transform, Load) pipeline to a Serverless architecture oriented to events on AWS. The system consumes messages/events of transactions via Apache Kafka in real-time, enriches the transactions by cross-referencing them with a customer registry hosted in the S3 Bucket (with in-memory cache optimization), and stores the final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning). The data is later used for fraud and financial anomaly analysis. All infrastructure is provisioned via Terraform following strict FinOps principles, ensuring operation within the AWS Free Tier (Free Usage Limits) through automatic lifecycle rules on S3 and budget limits configured in AWS Budgets.',
+      'An event-driven AWS Lambda function that consumes Kafka transactions, matches each record with customer data in Amazon S3, and writes the enriched result to the Data Lake Curated layer.',
     githubUrl: 'https://github.com/xssrae/noctus-lambda',
     challenges: [
-      'Implementing real-time processing of financial transaction events using AWS Lambda',
-      'Integrating the Lambda with the customer registry hosted in the S3 Bucket for data enrichment',
-      'Ensuring the integrity and consistency of processed data',
-      'Provisioning infrastructure efficiently and cost-effectively using Terraform and FinOps principles'
+      'Adapting Kafka events to the AWS Lambda execution model',
+      'Enriching transactions with the customer registry stored in Amazon S3',
+      'Committing offsets only after persistence succeeds',
+      'Provisioning infrastructure with Terraform and predictable cost limits'
     ],
     features: [
-      'Consumption of messages/events of financial transactions via Apache Kafka in real-time',
-      'Enrichment of transaction data by cross-referencing with the customer registry hosted in the S3 Bucket (with in-memory cache optimization)',
-      'Storage of final data in the Data Lake at the curated layer (Curated) in a partitioned manner (Hive Partitioning)',
-      'Infrastructure provisioning via Terraform following FinOps principles'
+      'Consumption of transaction events published to Apache Kafka',
+      'Customer data enrichment with an in-memory cache',
+      'Curated-layer persistence using Hive-style partitioning',
+      'Reproducible AWS infrastructure with Terraform and LocalStack'
     ],
     technologies: ['Python', 'AWS Lambda', 'AWS EventBridge', 'S3 Bucket', 'Apache Kafka', 'Terraform']
   }

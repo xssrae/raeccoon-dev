@@ -60,7 +60,7 @@ export default function Navbar() {
       )}
 
       <div
-        className={`fixed top-0 right-0 h-full w-[260px] bg-[#f5f5f0] dark:bg-[#0a0a0a] border-l border-black/10 dark:border-white/10 z-40 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col pt-24 px-8 xl:hidden ${
+        className={`fixed top-0 right-0 h-full w-[260px] bg-[var(--bg-color)] dark:bg-[var(--dark-bg-color)] border-l border-black/10 dark:border-white/10 z-40 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col pt-24 px-8 xl:hidden ${
           isMobileMenuOpen ? 'translate-x-0 shadow-2xl' : 'translate-x-full'
         }`}
       >
@@ -112,7 +112,7 @@ export default function Navbar() {
       </div>
 
       <nav className={`fixed top-6 left-0 right-0 flex justify-center px-4 transition-all duration-300 z-50 pointer-events-none`}>
-        <div className={`flex items-center gap-4 xl:gap-5 bg-white/80 dark:bg-black/60 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-sm rounded-full px-5 xl:px-6 py-2.5 pointer-events-auto transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? '-translate-x-[90px] xl:translate-x-0' : 'translate-x-0'}`}>
+        <div className={`flex items-center gap-4 xl:gap-5 bg-[var(--bg-color)]/85 dark:bg-[var(--dark-bg-color)]/85 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-sm rounded-full px-5 xl:px-6 py-2.5 pointer-events-auto transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? '-translate-x-[90px] xl:translate-x-0' : 'translate-x-0'}`}>
           
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

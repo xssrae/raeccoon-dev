@@ -4,6 +4,10 @@ export interface Project {
   title: string
   description: string
   summary: string
+  image?: {
+    src: string
+    alt: string
+  }
   impact?: string
   challenges?: string[]
   features?: string[]

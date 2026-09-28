@@ -69,15 +69,21 @@ export default function ProjectsDetail() {
         </Link>
 
         <div className="space-y-8">
+          {project.image && (
+            <div className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
+              <img src={project.image.src} alt={project.image.alt} className="aspect-[16/7] w-full object-cover" />
+            </div>
+          )}
+
           {/* Header */}
           <div>
             <h1 className="text-4xl lg:text-5xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-4">
               {project.title}
             </h1>
-            <p className="text-2xl opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-6">
+            <p className="mb-5 max-w-3xl text-lg leading-relaxed text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]">
               {project.description}
             </p>
-            <p className="text-base md:text-lg leading-relaxed opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--text-color)] opacity-80 dark:text-[var(--dark-text-color)] md:text-base">
               {project.summary || project.description}
             </p>
           </div>

@@ -1,4 +1,3 @@
-import { useState, useMemo} from 'react'
 import ScrambleText from '@/components/ui/ScrambleText'
 import ParticlesBackground from '@/components/ui/ParticlesBackground'
 import PhotoFrame from '@/components/ui/PhotoFrame'
@@ -6,8 +5,9 @@ import NowPlaying from '@/components/ui/NowPlaying'
 import MagneticButton from '@/components/ui/MagneticButton'
 import PageContainer from '@/components/layout/PageContainer'
 import FadeIn from '@/components/ui/FadeIn'
+import SkillsStack from '@/components/home/SkillsStack'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { Mail, Calendar, Clock, ArrowRight, ChevronDown, BriefcaseBusiness, Code2 } from 'lucide-react'
+import { Mail, Calendar, Clock, ArrowRight, ChevronDown, BriefcaseBusiness } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { Link } from 'react-router-dom'
 import { posts } from '@/data/posts'
@@ -30,15 +30,15 @@ export default function Home() {
       noImage: 'sem imagem ainda',
       readMore: 'Ler mais',
       skillsLabel: '/SKILLS',
-      skillsTitle: 'Skills',
+      skillsTitle: 'Stack',
+      skillsDescription: 'Ferramentas que uso no dia a dia, por área.',
       noSkills: 'Adicione suas skills em src/data/profile.ts',
       skillCategories: {
-        languages: 'Linguagens',
-        frameworks: 'Frameworks',
-        dados: 'Dados',
-        ai: 'Inteligência Artificial',
-        tools: 'Ferramentas',
-        architecture: 'Arquitetura',
+        languagesAndFrameworks: 'Linguagens e frameworks',
+        cloudAndStorage: 'Nuvem e armazenamento',
+        transformationAndOrchestration: 'Transformação e orquestração',
+        ai: 'IA',
+        alsoUse: 'Também uso',
       },
       experienceLabel: '/EXPERIENCIA',
       experienceTitle: 'Experiência',
@@ -55,15 +55,15 @@ export default function Home() {
       noImage: 'no image yet',
       readMore: 'Read more',
       skillsLabel: '/SKILLS',
-      skillsTitle: 'Skills',
+      skillsTitle: 'Stack',
+      skillsDescription: 'Tools I use day to day, organized by area.',
       noSkills: 'Add your skills in src/data/profile.ts',
       skillCategories: {
-        languages: 'Languages',
-        frameworks: 'Frameworks',
-        databases: 'Databases',
-        tools: 'Tools',
-        architecture: 'Architecture',
-        ai: 'Inteligência Artificial',
+        languagesAndFrameworks: 'Languages & frameworks',
+        cloudAndStorage: 'Cloud & storage',
+        transformationAndOrchestration: 'Transformation & orchestration',
+        ai: 'AI',
+        alsoUse: 'Also in my stack',
       },
       experienceLabel: '/EXPERIENCE',
       experienceTitle: 'Experience',
@@ -80,28 +80,8 @@ export default function Home() {
   const profileData = profile[lang]
   const jobs = lang === 'pt' ? jobs_pt : jobs_eng
   const previewJobs = jobs.slice(0, 2)
-  
-  
-  const skillCategories = Object.entries(profile.skills).filter(([, skillItems]) => skillItems.length > 0)
   const projects = lang === 'pt' ? projects_pt : projects_eng
   const previewProjects = projects.slice(0, 2)
-
-  /*const filteredProjects = useMemo(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase()
-    let resultProjects = projects
-
-    if (normalizedQuery) {
-      resultProjects = resultProjects.filter((projectItem) => {
-        const matchesTitle = projectItem.title?.toLowerCase().includes(normalizedQuery)
-        const matchesLanguage = projectItem.languages?.some((programmingLanguage) =>
-          programmingLanguage.toLowerCase().includes(normalizedQuery)
-        )
-        return matchesTitle || matchesLanguage
-      })
-    }
-
-    return normalizedQuery ? resultProjects : resultProjects.slice(0, 3)
-  }, [searchQuery, projects])*/
 
   function scrollToSkillsSection() {
     document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })
@@ -114,7 +94,6 @@ export default function Home() {
       <main id="home" className="relative min-h-screen flex items-center pt-24 pb-16 scroll-mt-24">
         <PageContainer className="relative z-10 flex flex-col-reverse xl:flex-row items-center justify-center gap-10 xl:gap-16 pt-8 xl:pt-0">
           
-          {/* Seção de Texto (Centralizada no Mobile/Tela Dividida, Esquerda no Desktop) */}
           <div className="flex-1 max-w-2xl flex flex-col items-center text-center xl:items-start xl:text-left">
             <ScrambleText
               text={`${profile.name}_`}
@@ -132,7 +111,7 @@ export default function Home() {
               <div className="flex flex-wrap justify-center xl:justify-start gap-3 mt-8">
                 {profile.email && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(`mailto:${profile.email}`)}
                   >
                     <Mail size={16} strokeWidth={1.5} /> EMAIL
@@ -140,7 +119,7 @@ export default function Home() {
                 )}
                 {profile.github && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(profile.github)}
                   >
                     <GithubIcon width={16} height={16} /> GITHUB
@@ -148,7 +127,7 @@ export default function Home() {
                 )}
                 {profile.linkedin && (
                   <MagneticButton
-                    className="flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-black/15 dark:border-white/15 bg-transparent hover:bg-[var(--button-color-hover)] dark:hover:bg-[var(--dark-button-color-hover)] transition-colors text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
+                    className="ui-pill flex items-center gap-2.5 px-6 py-2.5 text-xs font-mono tracking-widest uppercase text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     onClick={() => window.open(profile.linkedin)}
                   >
                     <LinkedinIcon width={16} height={16} /> LINKEDIN
@@ -166,54 +145,32 @@ export default function Home() {
 
         <button
           onClick={scrollToSkillsSection}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50 hover:opacity-100 transition-opacity animate-bounce text-[var(--text-color)] dark:text-[var(--dark-text-color)] hidden xl:block"
+          className="ui-icon-button absolute bottom-10 left-1/2 hidden -translate-x-1/2 animate-bounce p-2 text-[var(--text-color)] opacity-50 dark:text-[var(--dark-text-color)] xl:block"
         >
           <ChevronDown size={28} />
         </button>
       </main>
 
-      <section id="skills" className="relative py-24 scroll-mt-10">
-        <PageContainer>
-          <FadeIn>
-            <div className="mb-10 group">
+      <section id="skills" className="relative py-20 scroll-mt-10">
+        <PageContainer className="lg:grid lg:max-w-[90rem] lg:grid-cols-[minmax(17rem,0.37fr)_minmax(0,1fr)] lg:items-start lg:gap-12">
+          <FadeIn className="min-w-0">
+            <div className="group mb-10 lg:mb-0 lg:pr-6">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.skillsLabel}</p>
-              <h2 className="mt-1 text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors cursor-default">
+              <h2 className="mt-1 cursor-default font-mono text-4xl font-bold text-[var(--text-color)] transition-colors duration-300 group-hover:text-[var(--skills-hover)] dark:text-[var(--dark-text-color)] lg:text-[2.75rem]">
                 {currentTexts.skillsTitle}
               </h2>
+              <p className="mt-4 max-w-sm text-lg leading-relaxed text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]">
+                {currentTexts.skillsDescription}
+              </p>
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1}>
-            {skillCategories.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-10 border-t border-black/10 dark:border-white/10 pt-8">
-                {skillCategories.map(([categoryKey, skillItems]) => (
-                  <article key={categoryKey} className="min-w-0">
-                    <h3 className="flex items-center gap-2 text-sm font-mono uppercase tracking-wider opacity-60 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-4">
-                      <Code2 size={16} />
-                      {currentTexts.skillCategories[categoryKey as keyof typeof currentTexts.skillCategories] ?? categoryKey}
-                    </h3>
-
-                    <div className="flex flex-wrap gap-2">
-                      {skillItems.map((skillName) => (
-                        <span
-                          key={skillName}
-                          className="text-xs font-mono border border-black/15 dark:border-white/20 rounded-full px-3 py-1.5 opacity-90 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-black/5 dark:bg-black transition-colors"
-                        >
-                          {skillName}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-16 px-6 border-t border-black/10 dark:border-white/10">
-                <Code2 size={32} className="opacity-40 mb-4 text-[var(--text-color)] dark:text-[var(--dark-text-color)]" />
-                <p className="font-mono text-base opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
-                  $ {currentTexts.noSkills}
-                </p>
-              </div>
-            )}
+          <FadeIn className="min-w-0" delay={0.1}>
+            <SkillsStack
+              groups={profile.skills}
+              labels={currentTexts.skillCategories}
+              emptyMessage={currentTexts.noSkills}
+            />
           </FadeIn>
         </PageContainer>
       </section>
@@ -223,11 +180,11 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.experienceLabel}</p>
-              <Link to="/experience" className="inline-flex items-center gap-3 mt-1 group">
-                <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
+              <Link to="/experience" className="ui-link group mt-1 inline-flex items-center gap-3">
+                <h2 className="font-mono text-4xl font-bold text-[var(--text-color)] transition-colors duration-300 group-hover:text-[var(--experience-hover)] group-focus-visible:text-[var(--experience-hover)] dark:text-[var(--dark-text-color)] lg:text-[2.75rem]">
                   {currentTexts.experienceTitle}
                 </h2>
-                <ArrowRight size={28} className="text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:translate-x-1 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all" />
+                <ArrowRight size={28} className="text-[var(--text-color)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--experience-hover)] group-focus-visible:translate-x-1 group-focus-visible:text-[var(--experience-hover)] dark:text-[var(--dark-text-color)]" />
               </Link>
               <p className="mt-4 text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-2xl leading-relaxed">
                 {currentTexts.experienceDescription}
@@ -242,7 +199,7 @@ export default function Home() {
                   <Link
                     key={`${job.company}-${job.role}-${job.startDate}`}
                     to={`/experience/${index}`}
-                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                    className="ui-surface ui-surface--experience group p-6"
                   >
                     <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
                       {job.role}
@@ -280,11 +237,11 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.projectsLabel}</p>
-              <Link to="/projects" className="inline-flex items-center gap-3 mt-1 group">
-                <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
+              <Link to="/projects" className="ui-link group mt-1 inline-flex items-center gap-3">
+                <h2 className="font-mono text-4xl font-bold text-[var(--text-color)] transition-colors duration-300 group-hover:text-[var(--project-hover)] group-focus-visible:text-[var(--project-hover)] dark:text-[var(--dark-text-color)] lg:text-[2.75rem]">
                   {currentTexts.projectsTitle}
                 </h2>
-                <ArrowRight size={28} className="text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:translate-x-1 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all" />
+                <ArrowRight size={28} className="text-[var(--text-color)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--project-hover)] group-focus-visible:translate-x-1 group-focus-visible:text-[var(--project-hover)] dark:text-[var(--dark-text-color)]" />
               </Link>
               <p className="mt-4 text-lg opacity-70 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-2xl leading-relaxed">
                 {currentTexts.projectsDescription}
@@ -299,12 +256,12 @@ export default function Home() {
                   <Link
                     key={`${project.title}-${project.description}`}
                     to={`/projects/${index}`}
-                    className="group p-6 rounded-2xl border border-black/10 dark:border-white/10 hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                    className="ui-surface ui-surface--project group p-6"
                   >
                     <h3 className="text-xl md:text-2xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="mt-3 opacity-70 text-base leading-relaxed text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
+                    <p className="mt-3 text-sm leading-relaxed text-[var(--text-color)] opacity-70 dark:text-[var(--dark-text-color)]">
                       {project.description}
                     </p>
                     {project.impact && (
@@ -331,18 +288,18 @@ export default function Home() {
           <FadeIn>
             <div className="mb-10">
               <p className="text-sm font-mono opacity-50 text-[var(--text-color)] dark:text-[var(--dark-text-color)]">{currentTexts.blogLabel}</p>
-              <Link to="/blog" className="inline-flex items-center gap-3 mt-1 group">
-                <h2 className="text-4xl lg:text-[2.75rem] font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-colors">
+              <Link to="/blog" className="ui-link group mt-1 inline-flex items-center gap-3">
+                <h2 className="font-mono text-4xl font-bold text-[var(--text-color)] transition-colors duration-300 group-hover:text-[var(--blog-hover)] group-focus-visible:text-[var(--blog-hover)] dark:text-[var(--dark-text-color)] lg:text-[2.75rem]">
                   {currentTexts.blogTitle}
                 </h2>
-                <ArrowRight size={28} className="text-[var(--text-color)] dark:text-[var(--dark-text-color)] group-hover:translate-x-1 group-hover:text-[var(--text-color-hover)] dark:group-hover:text-[var(--dark-text-color-hover)] transition-all" />
+                <ArrowRight size={28} className="text-[var(--text-color)] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--blog-hover)] group-focus-visible:translate-x-1 group-focus-visible:text-[var(--blog-hover)] dark:text-[var(--dark-text-color)]" />
               </Link>
             </div>
           </FadeIn>
 
           <FadeIn delay={0.1}>
             {highlightPost && (
-              <div className="border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 flex flex-col xl:flex-row bg-white dark:bg-black">
+              <div className="ui-surface ui-surface--blog flex flex-col overflow-hidden bg-white/35 shadow-md dark:bg-black/10 xl:flex-row">
                 {highlightPost.image_path && (
                   <Link to={`/blog/${highlightPost.slug}`} className="xl:w-1/2 shrink-0 block h-80 xl:h-auto relative overflow-hidden group bg-black/5 dark:bg-white/5 flex items-center justify-center">
                     <img src={highlightPost.image_path} alt={highlightPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -350,7 +307,7 @@ export default function Home() {
                   </Link>
                 )}
 
-                <div className="flex-1 p-8 lg:p-10 flex flex-col bg-white dark:bg-black">
+                <div className="flex flex-1 flex-col bg-white/35 p-8 dark:bg-black/10 lg:p-10">
                   <span className="self-start font-mono text-[0.65rem] tracking-widest uppercase px-3 py-1.5 rounded-full mb-5 border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 font-semibold text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     {currentTexts.featuredPost}
                   </span>
@@ -358,7 +315,7 @@ export default function Home() {
                   <h3 className="text-3xl font-bold mb-4">
                     <Link
                       to={`/blog/${highlightPost.slug}`}
-                      className="group/title inline-flex items-center gap-2 text-[var(--text-color)] dark:text-[var(--dark-text-color)] hover:text-[var(--text-color-hover)] dark:hover:text-[var(--dark-text-color-hover)] transition-colors"
+                      className="ui-link group/title inline-flex items-center gap-2 text-[var(--text-color)] dark:text-[var(--dark-text-color)]"
                     >
                       {highlightPost.title}
                       <ArrowRight size={20} className="shrink-0 translate-x-0 group-hover/title:translate-x-1 transition-transform" />
@@ -392,7 +349,7 @@ export default function Home() {
                           <span className="flex items-center gap-1.5"><Clock size={14} /> {highlightPost.readTime}</span>
                         )}
                       </div>
-                    <Link to={`/blog/${highlightPost.slug}`} className="flex items-center gap-1.5 group font-semibold text-[var(--text-grey)] hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+                    <Link to={`/blog/${highlightPost.slug}`} className="ui-link group flex items-center gap-1.5 font-semibold text-[var(--text-grey)]">
                         {currentTexts.readMore} <ArrowRight size={14} className="group-hover:opacity-100 transition-opacity" />
                       </Link>
                     </div>

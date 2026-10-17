@@ -1,41 +1,61 @@
-name: Auto Create PR
+name: Auto PR
 
 on:
   push:
     branches:
       - 'feature/**'
+      - 'feat/**'
+      - dev
+
+concurrency:
+  group: auto-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  auto-pr:
+  open-pr:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/')
-    
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      # Sem checkout: tudo e resolvido pela API, evitando clone raso
+      - name: Open PR if needed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.ref_name }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          set -euo pipefail
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        base: dev
-        title: ${{ github.event.head_commit.message }}
-        body: |
-          ## 📝 Changes
-          
-          This PR was automatically created when the feature branch was pushed.
-          
-          ### Branch Pattern
-          - Follows pattern: `feature/nome-da-branch/feat: detalhe sobre a mudanca`
-          
-          ### Workflow
-          - Created from feature branch → dev
-          - Merges to dev for local build testing
-          - Ready for review and testing
-          
-          ---
-          *Automated PR from ${{ github.actor }}*
-        labels: automated, feature
-        draft: false
-        delete-branch: false
+          # feature/* e feat/* abrem PR para dev; dev abre o PR de release para main
+          if [ "$HEAD_REF" = "dev" ]; then
+            BASE=main
+            TITLE="Release: dev -> main"
+            LABELS="release,production"
+          else
+            BASE=dev
+            TITLE="${COMMIT_MSG%%$'\n'*}"
+            LABELS="automated,feature"
+          fi
+
+          EXISTING=$(gh pr list --head "$HEAD_REF" --base "$BASE" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "PR #$EXISTING ja aberto para $HEAD_REF -> $BASE; nada a fazer."
+            exit 0
+          fi
+
+          # Nada a integrar? Nao abre PR vazio.
+          AHEAD=$(gh api "repos/$GH_REPO/compare/$BASE...$HEAD_REF" --jq '.ahead_by')
+          if [ "$AHEAD" -eq 0 ]; then
+            echo "$HEAD_REF nao tem commits novos em relacao a $BASE; nada a fazer."
+            exit 0
+          fi
+
+          gh pr create \
+            --head "$HEAD_REF" \
+            --base "$BASE" \
+            --title "$TITLE" \
+            --body "PR aberto automaticamente a partir de \`$HEAD_REF\` por @${{ github.actor }}." \
+            --label "$LABELS"

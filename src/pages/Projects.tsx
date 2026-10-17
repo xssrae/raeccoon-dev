@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BriefcaseBusiness, ArrowRight } from 'lucide-react'
+import { BriefcaseBusiness, ArrowRight, FolderGit2 } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import { useLanguage } from '@/context/LanguageContext'
 import { projects_pt } from '@/data/projects/pt'
@@ -18,7 +18,7 @@ export default function Projects() {
       label: '/PROJETOS',
       title: 'Projetos',
       description:
-        'Um recorte da minha trajetória profissional, com responsabilidades e tecnologias que usei no caminho.',
+        'Produtos e experimentos que transformam desafios de arquitetura em experiências úteis.',
       empty: 'Adicione seus projetos em src/data/projects/pt.ts',
       technologies: 'Tecnologias',
     },
@@ -26,7 +26,7 @@ export default function Projects() {
       label: '/PROJECTS',
       title: 'Projects',
       description:
-        'A quick look at my professional path, responsibilities, and technologies used along the way.',
+        'Products and experiments that turn architecture challenges into useful experiences.',
       empty: 'Add your project entries in src/data/projects/eng.ts',
       technologies: 'Technologies',
     },
@@ -53,32 +53,44 @@ export default function Projects() {
 
       <FadeIn delay={0.1}>
         {projects.length > 0 ? (
-          <div className="flex flex-col border-t border-black/10 dark:border-white/10">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, projectIndex) => (
               <Link
                 key={`${project.description}-${projectIndex}`}
                 to={`/projects/${project.index ?? projectIndex}`}
-                className="group grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6 lg:gap-10 py-8 px-6 -mx-6 border-b border-black/10 dark:border-white/10 rounded hover:bg-[var(--box-color-hover)] dark:hover:bg-[var(--dark-box-color-hover)] transition-all duration-300"
+                className="ui-surface ui-surface--project group flex min-h-full flex-col overflow-hidden"
               >
-                <div className="hidden lg:block" aria-hidden="true" />
-
-                <div>
-                  <p className="text-xs font-mono opacity-40 text-[var(--text-color)] dark:text-[var(--dark-text-color)] mb-2">
+                <div className="project-cover relative aspect-[16/9] overflow-hidden border-b border-black/10 dark:border-white/10">
+                  {project.image ? (
+                    <img
+                      src={project.image.src}
+                      alt={project.image.alt}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] group-focus-visible:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                      <FolderGit2 className="h-10 w-10 opacity-50" strokeWidth={1.4} />
+                    </div>
+                  )}
+                  <span className="absolute left-4 top-4 rounded-full border border-black/10 bg-[var(--bg-color)]/90 px-3 py-1 font-mono text-[0.65rem] tracking-widest text-[var(--text-color)] backdrop-blur dark:border-white/10 dark:bg-[var(--dark-bg-color)]/90 dark:text-[var(--dark-text-color)]">
                     #{String(projectIndex + 1).padStart(2, '0')}
-                  </p>
-                  <h2 className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-color)] dark:text-[var(--dark-text-color)] flex items-center gap-2">
+                  </span>
+                </div>
+
+                <div className="flex flex-1 flex-col p-6 lg:p-7">
+                  <h2 className="flex items-center justify-between gap-3 font-mono text-2xl font-bold text-[var(--text-color)] dark:text-[var(--dark-text-color)]">
                     {project.title}
-                    <ArrowRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-neutral-400" />
+                    <ArrowRight size={20} className="shrink-0 opacity-50 transition-all group-hover:translate-x-1 group-hover:opacity-100 group-focus-visible:translate-x-1 group-focus-visible:opacity-100" />
                   </h2>
-                  <p className="mt-5 text-base md:text-lg leading-relaxed opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] max-w-3xl">
-                    {project.summary}
+                  <p className="mt-3 text-sm leading-relaxed text-[var(--text-color)] opacity-75 dark:text-[var(--dark-text-color)]">
+                    {project.description}
                   </p>
 
                   {project.technologies.length > 0 && (
-                    <div className="mt-6">
+                    <div className="mt-auto pt-6">
                       <p className="sr-only">{currentTexts.technologies}</p>
                       <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((technology) => (
+                        {project.technologies.slice(0, 4).map((technology) => (
                           <span
                             key={technology}
                             className="text-xs font-mono border border-black/15 dark:border-white/15 rounded-full px-3 py-1.5 opacity-80 text-[var(--text-color)] dark:text-[var(--dark-text-color)] bg-transparent"
@@ -86,6 +98,11 @@ export default function Projects() {
                             {technology}
                           </span>
                         ))}
+                        {project.technologies.length > 4 && (
+                          <span className="px-1 py-1.5 font-mono text-xs opacity-60">
+                            +{project.technologies.length - 4}
+                          </span>
+                        )}
                       </div>
                     </div>
                   )}

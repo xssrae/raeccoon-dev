@@ -5,45 +5,44 @@ export const projects_pt: Project[] = [
     index: 0,
     slug: 'rayo-cozy',
     title: 'Rayo Cozy',
-    description: 'Aplicação Web de gerenciamento de projetos de tecnologia',
+    description: 'Workspace de produtividade para organizar projetos, tarefas e tempo de foco.',
     summary:
-      'Aplicação Web de gerenciamento de projetos de tecnologia, desenvolvido em Typescript e React. Permite aos usuários criar, organizar e acompanhar seus projetos, listar tasks e muito mais por meio de uma interface intuitiva, responsiva e gamificada, promovendo a produtividade e o bem-estar.',
-    impact: 'Aumento da produtividade e melhoria do bem-estar dos usuários através do gerenciamento eficiente de projetos de tecnnomologia, tarefas e hábitos',
+      'Aplicação full stack construída com TypeScript, React e TanStack Start. Reúne projetos, tarefas, quadros Kanban e sessões de foco em uma experiência responsiva, com autenticação e persistência em PostgreSQL.',
+    impact: 'Centraliza planejamento e execução em um fluxo simples, reduzindo a troca de contexto entre ferramentas de tarefas, projetos e controle de tempo.',
     challenges: [
-      'Implementar uma interface de usuário intuitiva e responsiva para dispositivos móveis',
-      'Integrar o aplicativo com o Firebase para autenticação, armazenamento de dados e notificações push',
-      'Garantir a segurança e privacidade dos dados dos usuários',
-      'Otimizar o desempenho do aplicativo para uma experiência de usuário fluida'
+      'Projetar uma interface consistente e responsiva para desktop e dispositivos móveis',
+      'Modelar projetos, tarefas e conteúdo estruturado com persistência em PostgreSQL',
+      'Manter o estado do cronômetro confiável entre navegações e retomadas de sessão',
+      'Oferecer autenticação e isolamento seguro dos dados de cada usuário'
     ],
     features: [
-      'Criação e organização de tarefas e hábitos',
-      'Notificações push para lembretes de tarefas e hábitos',
-      'Sincronização de dados em tempo real com o Firebase',
-      'Interface de usuário intuitiva e responsiva para dispositivos móveis'
+      'Organização de projetos e tarefas em listas e quadro Kanban',
+      'Editores dedicados com salvamento automático e recuperação de falhas',
+      'Cronômetro de foco que pode ser retomado pelo servidor',
+      'Relatórios e exportação de dados para acompanhamento do trabalho'
     ],
     githubUrl: 'https://github.com/xssrae/rayo-cozy-space',
-    technologies: ['Typescript', 'React', 'Vite']
+    technologies: ['TypeScript', 'React', 'TanStack Start', 'PostgreSQL', 'Better Auth']
   },
   {
     index: 1,
     slug: 'noctus-service',
     title: 'Noctus Service',
-    description:'Serviço assincrono de detecção de fraudes em transações financeiras',
+    description: 'Serviço assíncrono para registrar e avaliar transações financeiras.',
     summary:
-    'Serviço de detecção de fraudes em transações financeiras, desenvolvido em Java e Spring Boot. Rregistra eventos em tempo real via Apache Kafka para análise posterior.',
-    impact: 'Detecção de fraudes em transações financeiras em tempo real, garantindo a integridade e consistência dos dados processados',
+      'API em Java e Spring Boot que recebe transações, aplica regras de avaliação de fraude e publica eventos no Apache Kafka. O fluxo desacopla a resposta da API do enriquecimento posterior realizado pelo Noctus Lambda.',
+    impact: 'Cria uma entrada confiável e desacoplada para o pipeline antifraude, preservando a consistência dos eventos antes do processamento analítico.',
     challenges: [
-      'Implementar processamento assíncrono de eventos de transações financeiras em tempo real',
-      'Integrar o serviço com a pipeline ETL Noctus Lambda para enriquecimento de dados',
-      'Garantir a integridade e consistência dos dados processados',
-      'Provisionar a infraestrutura de forma eficiente e econômica utilizando Terraform e princípios de FinOps'
+      'Processar transações de forma assíncrona sem perder eventos confirmados',
+      'Definir um contrato estável entre a API, o tópico Kafka e o pipeline de enriquecimento',
+      'Garantir consistência entre persistência, publicação e confirmação de offsets',
+      'Reproduzir a arquitetura localmente com serviços conteinerizados'
     ],
     features: [
-      'Registro de eventos de transações financeiras em tempo real via Apache Kafka',
-      'Processamento assíncrono de eventos para detecção de fraudes',
-      'Integração com a pipeline ETL Noctus Lambda para enriquecimento de dados', 
-      'Armazenamento dos dados finais no Data Lake na camada consolidada (Curated) de forma particionada (Hive Partitioning)',
-      'Provisionamento da infraestrutura via Terraform seguindo princípios de FinOps'
+      'API REST para registro e avaliação inicial de transações',
+      'Publicação assíncrona de eventos no Apache Kafka',
+      'Integração contratual com o pipeline Noctus Lambda',
+      'Ambiente local reproduzível para testes de integração'
     ],
     githubUrl: 'https://github.com/xssrae/noctus-service',
     technologies: ['Java', 'Spring Boot', 'Apache Kafka']
@@ -51,24 +50,24 @@ export const projects_pt: Project[] = [
   {
     index: 2,
     slug: 'noctus-lambda',
-    title: 'Pipeline ETL Noctus Lambda',
-    description:'Analise de transações financeiras em tempo real com o Lambda que consome mensagens/eventos de transações do tópico Apache Kafka, enriquece os dados para análise de fraudes e anomalias financeiras.',
+    title: 'Noctus Lambda',
+    description: 'Pipeline serverless que enriquece transações e prepara dados para análise de fraudes.',
     impact: 
-      'Enriquecimento de dados de transações financeiras em tempo real, permitindo a análise avançada e detecção de fraudes',
+      'Transforma eventos operacionais em dados analíticos organizados, prontos para investigação de fraudes e anomalias.',
     summary:
-      'Evolução de um pipeline de ETL (Extract, Transform, Load) em lote para uma arquitetura Serverless orientada a eventos na AWS. O sistema consome mensagens/eventos de transações via Apache Kafka em tempo real, enriquece as transações cruzando-as com uma base cadastral de clientes hospedada no Bucket S3 (com otimização de cache em memória) e armazena os dados finais no Data Lake na camada consolidada (Curated) de forma particionada (Hive Partitioning). Os dados servem posterioremente para análise de fraudes e anomalias financeiras. Toda a infraestrutura é provisionada via Terraform seguindo rígidos conceitos de FinOps, garantindo a operação dentro do AWS Free Tier (Limite Gratuito) através de regras de ciclo de vida automáticas no S3 e limites de orçamento configurados no AWS Budgets.',
+      'Função AWS Lambda orientada a eventos que consome transações do Kafka, cruza cada registro com uma base de clientes no Amazon S3 e grava o resultado enriquecido na camada Curated do Data Lake.',
     githubUrl: 'https://github.com/xssrae/noctus-lambda',
     challenges: [
-      'Implementar processamento de eventos de transações financeiras em tempo real utilizando AWS Lambda',
-      'Integrar o Lambda com a base cadastral de clientes hospedada no Bucket S3 para enriquecimento de dados',
-      'Garantir a integridade e consistência dos dados processados',
-      'Provisionar a infraestrutura de forma eficiente e econômica utilizando Terraform e princípios de FinOps'
+      'Adaptar eventos Kafka ao modelo de execução do AWS Lambda',
+      'Enriquecer transações com a base cadastral armazenada no Amazon S3',
+      'Confirmar offsets somente depois da persistência bem-sucedida',
+      'Provisionar a infraestrutura com Terraform e limites de custo previsíveis'
     ],
     features: [
-      'Consumo de mensagens/eventos de transações financeiras via Apache Kafka em tempo real',
-      'Enriquecimento de dados de transações cruzando-os com a base cadastral de clientes hospedada no Bucket S3 (com otimização de cache em memória)',
-      'Armazenamento dos dados finais no Data Lake na camada consolidada (Curated) de forma particionada (Hive Partitioning)',
-      'Provisionamento da infraestrutura via Terraform seguindo princípios de FinOps'
+      'Consumo de eventos de transação publicados no Apache Kafka',
+      'Enriquecimento com cadastro de clientes e cache em memória',
+      'Persistência na camada Curated com particionamento no padrão Hive',
+      'Infraestrutura AWS reproduzível com Terraform e LocalStack'
     ],
     technologies: ['Python', 'AWS Lambda', 'AWS EventBridge', 'Bucket S3', 'Apache Kafka', 'Terraform']
   }

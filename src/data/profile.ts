@@ -21,12 +21,12 @@ export const profile = {
   },
 
   skills: {
-    languages: ['Java', 'Kotlin', 'Python'],
-    frameworks: ['Spring Boot', 'Pandas'],
-    databases: ['Apache Cassandra', 'PostgreSQL'],
-    messaging: ['Apache Kafka'],
-    devops: ['Git', 'Docker', 'Terraform'],
-    ai: ['Claude Code', 'Devin', 'Copilot'],
-    architecture: ['Event-Driven Architecture', 'Serverless', 'ETL/Pipelines'],
+    languagesAndFrameworks: ['Java', 'Kotlin', 'Python', 'Spring Boot', 'Pandas'],
+    cloudAndStorage: ['AWS', 'Apache Cassandra', 'PostgreSQL'],
+    transformationAndOrchestration: ['Git', 'Docker', 'Terraform', 'AWS'],
+    ai: ['Claude Code', 'Devin', 'Codex'],
+    alsoUse: ['Apache Kafka', 'Event-Driven Architecture', 'Serverless', 'ETL/Pipelines'],
   },
 }
+
+export type SkillGroupKey = keyof typeof profile.skills

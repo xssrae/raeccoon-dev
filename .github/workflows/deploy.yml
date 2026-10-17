@@ -53,9 +53,10 @@ jobs:
 
       - name: Deploy to Netlify
         id: netlify
-        uses: nwtgck/actions-netlify@v3.0
+        uses: nwtgck/actions-netlify@v4
         with:
           publish-dir: ./dist
+          fails-without-credentials: true
           production-deploy: ${{ github.event_name == 'push' }}
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}

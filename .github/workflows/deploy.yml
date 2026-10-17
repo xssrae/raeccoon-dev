@@ -59,7 +59,8 @@ jobs:
           production-deploy: ${{ github.event_name == 'push' }}
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: ${{ github.event_name == 'push' && format('Deploy {0}', github.sha) || format('Preview PR #{0}', github.event.pull_request.number) }}
+          # Aspas obrigatorias: um "#" sem aspas iniciaria um comentario YAML
+          deploy-message: "${{ github.event_name == 'push' && format('Deploy {0}', github.sha) || format('Preview PR #{0}', github.event.pull_request.number) }}"
           enable-pull-request-comment: true
           enable-commit-comment: false
           overwrites-pull-request-comment: true

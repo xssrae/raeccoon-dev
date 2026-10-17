@@ -21,7 +21,7 @@ html {
   --skills-icon-hover: #303428;
   --experience-hover: #D98E73;
   --project-hover: #CFA067;
-  --blog-hover: #8C8A72;
+  --blog-hover: #889ca1;
   --button-color-hover: #CFA067;
   --box-color-hover: color-mix(in srgb, var(--project-hover) 42%, transparent);
   --interactive-background-hover: color-mix(in srgb, var(--project-hover) 28%, transparent);
@@ -43,7 +43,7 @@ html.dark {
   --skills-icon-hover: #24271c;
   --experience-hover: #A6634B;
   --project-hover: #D98E32;
-  --blog-hover: #736C49;
+  --blog-hover: #BDCED3;
   --dark-box-color-hover: color-mix(in srgb, var(--project-hover) 30%, transparent);
   --dark-button-color-hover: #12110e;
   --interactive-background-hover: color-mix(in srgb, var(--project-hover) 20%, transparent);

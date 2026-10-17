@@ -3,45 +3,14 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import remarkAlert from 'remark-github-alerts'
 import 'highlight.js/styles/github-dark.css'
-import { useState, useEffect } from 'react'
 
 interface MarkdownRendererProps {
   content: string
 }
 
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  const [renderError, setRenderError] = useState<string | null>(null)
-  const [isRendering, setIsRendering] = useState(true)
-
-  useEffect(() => {
-    setIsRendering(true)
-    setRenderError(null)
-    // Simula um pequeno delay para evitar travamento ao processar conteúdo grande
-    const timer = setTimeout(() => {
-      setIsRendering(false)
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [content])
-
-  if (renderError) {
-    return (
-      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-        <p className="text-red-500 font-mono">Erro ao renderizar Markdown: {renderError}</p>
-      </div>
-    )
-  }
-
-  if (isRendering) {
-    return (
-      <div className="p-4 text-center opacity-50">
-        <p className="font-mono">Carregando conteúdo...</p>
-      </div>
-    )
-  }
-
-  try {
-    return (
-      <ReactMarkdown
+  return (
+    <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkAlert]}
       rehypePlugins={[rehypeHighlight]}
       components={{
@@ -189,14 +158,5 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     >
       {content}
     </ReactMarkdown>
-    )
-  } catch (error) {
-    console.error('Erro ao renderizar Markdown:', error)
-    setRenderError(error instanceof Error ? error.message : 'Erro desconhecido')
-    return (
-      <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-        <p className="text-red-500 font-mono">Erro ao renderizar Markdown: {error instanceof Error ? error.message : 'Erro desconhecido'}</p>
-      </div>
-    )
-  }
+  )
 }

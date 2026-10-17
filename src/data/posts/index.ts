@@ -26,7 +26,9 @@ function estimateReadTime(text: string): string {
   return `${minutes} min`
 }
 
-function parseFrontmatter(raw: string): { data: Record<string, any>; content: string } {
+type FrontmatterValue = string | string[]
+
+function parseFrontmatter(raw: string): { data: Record<string, FrontmatterValue>; content: string } {
   // Normaliza quebras de linha para evitar caracteres \r (CRLF) no Windows
   const normalizedRaw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
   const lines = normalizedRaw.split('\n')
@@ -52,7 +54,7 @@ function parseFrontmatter(raw: string): { data: Record<string, any>; content: st
   const contentLines = lines.slice(closingIndex + 1)
 
   const content = contentLines.join('\n').trim()
-  const data: Record<string, any> = {}
+  const data: Record<string, FrontmatterValue> = {}
   let currentKey = ''
 
   for (const line of frontmatterLines) {
@@ -65,10 +67,10 @@ function parseFrontmatter(raw: string): { data: Record<string, any>; content: st
       if ((item.startsWith("'") && item.endsWith("'")) || (item.startsWith('"') && item.endsWith('"'))) {
         item = item.slice(1, -1)
       }
-      if (!Array.isArray(data[currentKey])) {
-        data[currentKey] = []
-      }
-      data[currentKey].push(item)
+      const existing = data[currentKey]
+      const list = Array.isArray(existing) ? existing : []
+      list.push(item)
+      data[currentKey] = list
       continue
     }
 

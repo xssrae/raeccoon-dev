@@ -7,13 +7,13 @@ export const jobs_pt: Job[] = [
     startDate: 'Jan 2026',
     endDate: 'Atualmente',
     description:
-      'Desenvolvimento de sistemas distribuídos para Recuperação de Crédito PF com Java, Kotlin e Spring Boot. Construção de microsserviços orientados a eventos com Apache Kafka e AWS SQS, considerando particionamento, backpressure, DLQs e consistência transacional. Atuação também em pipelines serverless de dados, infraestrutura como código, execução em contêineres e observabilidade de serviços.',
+      'Atuo com Desenvolvimento de sistemas distribuídos para a comunidade de Recuperação PF utilizando como Stack principal Java, Kotlin e Spring Boot. Realizo a contrução de microsserviços orientados a eventos com Apache Kafka e AWS SQS, considerando particionamento, backpressure, DLQs e consistência transacional. Parte da minha atuação também consiste no desenvolvimento de pipelines serverless de dados, infraestrutura como código, execução em contêineres e observabilidade de serviços.',
     summary: 'Sistemas distribuídos para recuperação de crédito, com microsserviços orientados a eventos e infraestrutura AWS.',
     challenges: [
-      'Projetar comunicação resiliente e assíncrona entre serviços',
-      'Preservar integridade transacional em fluxos distribuídos',
-      'Gerenciar consistência eventual e tratamento seguro de falhas',
-      'Evoluir e observar múltiplos microsserviços em produção'
+      'Desenvolver comunicação assíncrona entre serviços',
+      'Preservar integridade transacional em fluxos de dados distribuídos',
+      'Gerenciar testes IaaC, TaaC e Observabilidade de microsserviços',
+      'Utilizar ferramentas de Inteligência Artificial em todas as etapas do desenvolvimento de software'
     ],
     skills: [
       'Arquitetura orientada a eventos',
@@ -35,23 +35,22 @@ export const jobs_pt: Job[] = [
     startDate: 'Jun 2024',
     endDate: 'Dec 2025',
     description:
-      'Desenvolvimento de jornadas conversacionais e soluções de mensageria para os canais Web, Mobile e WhatsApp. Integração de assistentes virtuais, com e sem IA generativa, a APIs REST por meio de plataformas low-code. Participação no ciclo completo das soluções, do refinamento à implantação, com Terraform, pipelines de CI/CD e observabilidade no Datadog.',
+      'Trabalhei durante 1 ano e 6 meses com o Desenvolvimento de Jornadas Conversacionais na comunidade Atendimento para os principais canais de atendimento do banco em ambientes Web, Mobile e WhatsApp. Realizei a integração de chatbots, com e sem IA generativa, a APIs REST por meio de plataformas Low-Code. Participei do ciclo completo das soluções, do refinamento à implantação, com Terraform, pipelines de CI/CD e observabilidade no Datadog.', 
+      
     summary: 'Jornadas conversacionais integradas a APIs, com foco em automação e experiência do cliente.',
     challenges: [
-      'Projetar jornadas consistentes para diferentes canais digitais',
+      'Projetar jornadas conversacionais para diferentes canais digitais',
       'Integrar assistentes virtuais e IA generativa a APIs existentes',
       'Conduzir soluções de mensageria do refinamento à implantação',
       'Equilibrar automação, clareza e autonomia para o cliente'
     ],
     skills: [
-      'Experiência do cliente e jornadas conversacionais',
+      'Experiência do cliente',
       'Integração com canais Web, Mobile e WhatsApp',
-      'Desenvolvimento low-code e integração com APIs REST',
-      'Engenharia de software assistida por GitHub Copilot, Microsoft Copilot e StackSpot',
-      'Infraestrutura como Código com Terraform',
-      'Pipelines de CI/CD para implantação',
+      'Desenvolvimento Low-Code e integração com APIs REST',
+      'Vibe Coding com Copilot e StackSpot',
       'Observabilidade de APIs com Datadog'
     ],
-    technologies: ['Python', 'Datadog', 'GitHub Copilot', 'Microsoft Copilot', 'Stackspot', 'Terraform', 'CI/CD'],
+    technologies: ['Python', 'Datadog','Microsoft Copilot', 'Stackspot', 'Terraform', 'CI/CD'],
   },
 ]
